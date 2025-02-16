@@ -1,0 +1,43 @@
+.disabled {
+  pointer-events: none;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.block {
+  &_fullSize {
+    width: 100%;
+    height: 100%;
+  }
+
+  &_absolute {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  &_flex {
+    display: flex;
+
+    &_centered {
+      justify-content: center;
+      align-items: center;
+    }
+
+    &_aligned_center {
+      align-items: center;
+    }
+
+    &_justified_center {
+      justify-content: center;
+    }
+  }
+
+  &_withBgImage {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "parser": "@typescript-eslint/parser", // Allows Eslint to understand TypeScript syntax.
+  "parserOptions": {
+    "project": "./tsconfig.eslint.json", // Specify where to find the root tsconfig file of your project.
+    "ecmaVersion": 2021, // ECMAScript version supported in the project.
+    "sourceType": "module", // set to `module` because we ue ECMAScript modules.
+    "ecmaFeatures": {
+      "jsx": true // enable jsx for React.
+    }
+  },
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier", "import", "unused-imports"],
+  "settings": {
+    "react": {
+      "version": "detect" // auto-detect React version from package.json.
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"] // use typescript-eslint parser for .ts|tsx files.
+    },
+    "import/resolver": {
+      "typescript": {
+        "project": "./tsconfig.eslint.json",
+        "alwaysTryTypes": true // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`.
+      },
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
+  "root": true,
+  "extends": [
+    "plugin:react/recommended", // Recommended react linting configs.
+    "plugin:@typescript-eslint/recommended", // Turns on rules from TypeScript-specific plugin.
+    "plugin:prettier/recommended", // Turns off all rules that are unnecessary or might conflict with Prettier.
+    "plugin:import/recommended", // Linting of ES2015+ import/export syntax.
+    "plugin:react/jsx-runtime" // Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
+  ],
+  "rules": {
+    "@typescript-eslint/explicit-member-accessibility": "warn",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "import/named": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "prettier/prettier": [
+      "warn",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "no-console": ["warn"],
+    "react/prop-types": "off",
+    "react/no-unescaped-entities": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/self-closing-comp": [
+      "error",
+      {
+        "component": true,
+        "html": true
+      }
+    ],
+    "import/first": "warn",
+    "import/newline-after-import": "warn",
+    "lines-between-class-members": ["error", "always"],
+    "import/no-duplicates": "error",
+    "import/no-named-as-default-member": "off",
+    "import/no-named-as-default": "off",
+    "react/jsx-sort-props": [
+      "warn",
+      {
+        "callbacksLast": true,
+        "ignoreCase": true,
+        "reservedFirst": true,
+        "noSortAlphabetically": true
+      }
+    ],
+    "import/order": [
+      1,
+      {
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "builtin",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["react"],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "@typescript-eslint/member-ordering": [
+      "warn",
+      {
+        "default": [
+          "public-field",
+          "protected-field",
+          "private-field",
+          "constructor",
+          "public-get",
+          "protected-get",
+          "private-get",
+          "public-set",
+          "protected-set",
+          "private-set",
+          "public-method",
+          "protected-method",
+          "private-method"
+        ]
+      }
+    ]
+  },
+  "env": {
+    "browser": true // enable use of global browser variables like `windows`.
+  },
+  "overrides": [
+    {
+      "files": ["**/stories/**"],
+      "rules": {
+        "no-console": "off",
+        "no-alert": "off",
+        "import/no-anonymous-default-export": "off"
+      }
+    }
+  ]
+}

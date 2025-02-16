@@ -1,0 +1,12 @@
+@import './variables.scss';
+
+:root {
+  --app-height: 100%;
+  --root-scale-value: #{$rootScaleValue};
+  
+  font-size: 6.5px;
+
+  @media (min-width: $width-min-font) {
+    font-size: $defaultFontSize;
+  }
+}

@@ -1,0 +1,647 @@
+@function getSizeValue($value) {
+  @return calc(var(--size) * $value);
+}
+
+.main {
+  --size: 1px;
+  font-size: 1px;
+  position: relative;
+  width: getSizeValue(562);
+  height: getSizeValue(562);
+  z-index: 0;
+
+  &_side {
+    &_w {
+      .sign_direction_vertical {
+        &.sign_index {
+          @for $i from 0 through 7 {
+            &_#{$i} {
+              left: calc(getSizeValue(33) + getSizeValue(62) * $i);
+              top: 0;
+            }
+          }
+        }
+
+        &.sign_oppositeSide {
+          top: auto;
+        }
+      }
+
+      .sign_direction_horizontal {
+        &.sign_index {
+          @for $i from 0 through 7 {
+            &_#{$i} {
+              left: 0;
+              top: calc(getSizeValue(33) + getSizeValue(62) * (7 - $i));
+            }
+          }
+        }
+
+        &.sign_oppositeSide {
+          left: auto;
+        }
+      }
+
+      @for $i from 0 to 64 {
+        $horizontal: $i % 8;
+        $vertical: floor(calc($i / 8));
+
+        .cell:nth-child(#{$i + 1}) {
+          grid-row-start: $vertical + 1;
+          grid-column-start: $horizontal + 1;
+          grid-row-end: $vertical + 2;
+          grid-column-end: $horizontal + 2;
+        }
+      }
+    }
+
+    &_b {
+      .sign_direction_vertical {
+        &.sign_index {
+          @for $i from 0 through 7 {
+            &_#{$i} {
+              left: calc(getSizeValue(33) + getSizeValue(62) * (7 - $i));
+              top: 0;
+            }
+          }
+        }
+
+        &.sign_oppositeSide {
+          top: auto;
+        }
+      }
+
+      .sign_direction_horizontal {
+        &.sign_index {
+          @for $i from 0 through 7 {
+            &_#{$i} {
+              left: 0;
+              top: calc(getSizeValue(33) + getSizeValue(62) * $i);
+            }
+          }
+        }
+
+        &.sign_oppositeSide {
+          left: auto;
+        }
+      }
+
+      @for $i from 0 to 64 {
+        $horizontal: 7 - $i % 8;
+        $vertical: 7 - floor(calc($i / 8));
+
+        .cell:nth-child(#{$i + 1}) {
+          grid-row-start: $vertical + 1;
+          grid-column-start: $horizontal + 1;
+          grid-row-end: $vertical + 2;
+          grid-column-end: $horizontal + 2;
+        }
+      }
+    }
+  }
+
+  &_skinType {
+    &_blackAndWhite {
+      .background {
+        background: #125E3D;
+
+        @media (min-width: 1000px) {
+          box-shadow: 0 0.4rem 0 0 #1B6632;
+        }
+      }
+
+      .cell_color_w::before {
+        background-color: #FFFFFF;
+      }
+
+      .cell_color_b::before,
+      .promoterPiece {
+        background-color: #28242D;
+      }
+
+      .hover,
+      .weakFill {
+        &_color {
+          &_w {
+            background-color: #C0C4D3;
+          }
+
+          &_b {
+            background-color: #68666C;
+          }
+        }
+      }
+
+      .counter {
+        background-color: #429C72;
+      }
+
+      .counterValue {
+        background-color: #038748;
+      }
+    }
+  }
+}
+
+.background {
+  border-radius: getSizeValue(26);
+  background: #11757E;
+  z-index: -2;
+
+  @media (min-width: 1000px) {
+    box-shadow: 0 getSizeValue(4) 0 0 #006D7C;
+  }
+}
+
+.sign {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+
+  &_direction {
+    &_vertical {
+      width: getSizeValue(62);
+      height: getSizeValue(33);
+
+      .signArrow {
+        left: 50%;
+        bottom: calc(100% + getSizeValue(4));
+        transform: translateX(-50%) rotate(-90deg);
+        animation: signArrowAnimationTop 1000ms infinite;
+      }
+
+      &.sign_oppositeSide {
+        top: auto;
+        bottom: 0;
+
+        .signArrow {
+          left: 50%;
+          top: calc(100% + getSizeValue(4));
+          bottom: auto;
+          transform: translateX(-50%) rotate(90deg);
+          animation: signArrowAnimationBottom 1000ms infinite;
+        }
+      }
+
+      .signContent {
+        font-size: getSizeValue(24);
+      }
+    }
+
+    &_horizontal {
+      width: getSizeValue(33);
+      height: getSizeValue(62);
+
+      .signArrow {
+        right: calc(100% + getSizeValue(4));
+        top: 50%;
+        transform: translateY(-50%) rotate(180deg);
+        animation: signArrowAnimationLeft 1000ms infinite;
+      }
+
+      &.sign_oppositeSide {
+        left: auto;
+        right: 0;
+
+        .signArrow {
+          left: calc(100% + getSizeValue(4));
+          right: auto;
+          top: 50%;
+          transform: translateY(-50%) rotate(0);
+          animation: signArrowAnimationRight 1000ms infinite;
+        }
+      }
+
+      .signContent {
+        font-size: getSizeValue(20);
+      }
+    }
+  }
+
+  &_selected {
+    &.sign_direction {
+      &_vertical {
+        .signContent {
+          font-size: getSizeValue(32);
+          color: #FFFFFF;
+        }
+      }
+
+      &_horizontal {
+        .signContent {
+          font-size: getSizeValue(28);
+          color: #FFFFFF;
+        }
+      }
+    }
+  }
+
+  &_visible {
+    display: flex;
+  }
+}
+
+.signContent {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1;
+}
+
+.cellsContainer {
+  position: absolute;
+  left: getSizeValue(33);
+  top: getSizeValue(33);
+  width: getSizeValue(496);
+  height: getSizeValue(496);
+  display: grid;
+  grid-template-rows: repeat(8, 1fr);
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.cell {
+  position: relative;
+
+  // topLeftCell: 1;
+  &:nth-child(1) {
+    border-top-left-radius: 4px;
+  }
+
+  // topRightCell: 8;
+  &:nth-child(8) {
+    border-top-right-radius: 4px;
+  }
+
+  // bottomLeftCell: 56;
+  &:nth-child(57) {
+    border-bottom-left-radius: 4px;
+  }
+
+  // bottomRightCell: 64;
+  &:nth-child(64) {
+    border-bottom-right-radius: 4px;
+  }
+
+  &_color {
+    &_w::before {
+      background-color: #5FC9C6;
+    }
+
+    &_b::before {
+      background-color: #22A6AA;
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+  }
+
+  &_hovered {
+    .hover {
+      opacity: 1;
+    }
+  }
+
+  &_hoverable {
+    &.cell_enabled {
+      @media (hover) {
+        &:hover {
+          .hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
+  &_enabled {
+    cursor: pointer;
+  }
+
+  .target {
+    /* при position: absolute свг не отображается на iOS 14, задача COT-1190 */
+    position: relative;
+    width: 119%;
+    height: 119%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    filter: drop-shadow(0px 4px 0px rgba(0, 0, 0, 0.15));
+  }
+}
+
+.hover {
+  opacity: 0;
+  z-index: -1;
+
+  &_color {
+    &_w {
+      background-color: rgba(255, 255, 255, 0.35);
+    }
+
+    &_b {
+      background-color: rgba(46, 59, 107, 0.35);
+    }
+  }
+}
+
+.fill {
+  z-index: -1;
+
+  &_color {
+    &_w {
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    &_b {
+      background: rgba(46, 59, 107, 0.6);
+    }
+  }
+}
+
+.corners {
+  /* при position: absolute свг не отображается на iOS 14, задача COT-1190 */
+  position: relative;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: -1;
+
+  &_color {
+    &_w {
+      svg {
+        fill: rgba(255, 255, 255, 0.4);
+      }
+    }
+
+    &_b {
+      svg {
+        fill: rgba(46, 59, 107, 0.35);
+      }
+    }
+  }
+}
+
+.border {
+  border: getSizeValue(6) solid #E4DB81;
+  box-sizing: border-box;
+  box-shadow: 0 getSizeValue(4) 0 rgba(0, 0, 0, 0.15);
+  border-radius: getSizeValue(1);
+  z-index: -1;
+}
+
+.overlap {
+  pointer-events: none;
+
+  &_color {
+    &_w {
+      background-color: rgba(255, 255, 255, 0.35);
+    }
+
+    &_b {
+      background-color: rgba(46, 59, 107, 0.35);
+    }
+  }
+}
+
+.weakFill {
+  z-index: -1;
+
+  &_color {
+    &_w {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    &_b {
+      background-color: rgba(46, 59, 107, 0.2);
+    }
+  }
+}
+
+.highlight {
+  border: getSizeValue(8) solid #54FFFC;
+  box-sizing: border-box;
+  border-radius: getSizeValue(4);
+}
+
+.highlight2 {
+  border: getSizeValue(6) solid #F97248;
+  box-sizing: border-box;
+}
+
+.slot {
+  width: 100%;
+  height: 100%;
+}
+
+.row {
+  position: absolute;
+  border: getSizeValue(6) solid #E4DB81;
+  box-sizing: border-box;
+  box-shadow: 0 getSizeValue(4) 0 rgba(0, 0, 0, 0.15);
+  border-radius: getSizeValue(1);
+  pointer-events: none;
+
+  &_direction {
+    &_vertical {
+      top: getSizeValue(33);
+      width: getSizeValue(62);
+      height: getSizeValue(496);
+
+      &.row_index {
+        @for $i from 0 through 7 {
+          &_#{$i} {
+            left: calc(getSizeValue(33) + getSizeValue(62) * $i);
+          }
+        }
+      }
+    }
+
+    &_horizontal {
+      left: getSizeValue(33);
+      width: getSizeValue(496);
+      height: getSizeValue(62);
+
+      &.row_index {
+        @for $i from 0 through 7 {
+          &_#{$i} {
+            top: calc(getSizeValue(33) + getSizeValue(62) * (7 - $i));
+          }
+        }
+      }
+    }
+  }
+}
+
+.line {
+  --pointX: 0;
+  --pointY: 0;
+  --width: 0;
+  --angle: 0;
+
+  position: absolute;
+  left: getSizeValue(var(--pointX));
+  top: getSizeValue(var(--pointY));
+  width: getSizeValue(var(--width));
+  transform: rotate(calc(var(--angle) * 1deg));
+  transform-origin: 0 0;
+  pointer-events: none;
+
+  &_type {
+    &_arrow {
+      .lineInner {
+        border-radius: 100px;
+      }
+
+      .lineTip {
+        transform: translateY(-50%);
+      }
+    }
+
+    &_capturedArrow {
+      .lineInner {
+        border-radius: 100px;
+        opacity: 0.2;
+      }
+
+      .lineTip {
+        transform: translateY(-50%) translateX(50%);
+      }
+    }
+
+    &_capturedLine {
+      .lineInner {
+        border-radius: 100px;
+        opacity: 0.2;
+      }
+    }
+
+    &_defaultLine {
+      .lineInner {
+        opacity: 0.4;
+      }
+    }
+  }
+}
+
+.lineInner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: getSizeValue(4);
+  background-color: #fff;
+  transform: translateY(-50%);
+}
+
+.lineTip {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: getSizeValue(17);
+  height: getSizeValue(30);
+  color: #FFFFFF;
+
+  &_captured {
+    opacity: 0.5;
+  }
+}
+
+@keyframes signArrowAnimationLeft {
+  0% {
+    transform: translateY(-50%) rotate(180deg);
+  }
+
+  50% {
+    transform: translate(-15%, -50%) rotate(180deg);
+  }
+
+  100% {
+    transform: translateY(-50%) rotate(180deg);
+  }
+}
+
+@keyframes signArrowAnimationRight {
+  0% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+
+  50% {
+    transform: translate(15%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+}
+
+@keyframes signArrowAnimationTop {
+  0% {
+    transform: translateX(-50%) rotate(-90deg);
+  }
+
+  50% {
+    transform: translate(-50%, -15%) rotate(-90deg);
+  }
+
+  100% {
+    transform: translateX(-50%) rotate(-90deg);
+  }
+}
+
+@keyframes signArrowAnimationBottom {
+  0% {
+    transform: translateX(-50%) rotate(90deg);
+  }
+
+  50% {
+    transform: translate(-50%, 15%) rotate(90deg);
+  }
+
+  100% {
+    transform: translateX(-50%) rotate(90deg);
+  }
+}
+
+.sideArrow {
+  position: absolute;
+  right: getSizeValue(-35);
+  width: getSizeValue(30);
+  height: getSizeValue(42);
+
+  :global(.shadow) {
+    fill: #429C72;
+  }
+
+  :global(.main) {
+    fill: #68BE91;
+  }
+
+  &_top {
+    top: getSizeValue(18);
+  }
+
+  &_bottom {
+    bottom: getSizeValue(10);
+  }
+}
+
+.rotate {
+  &_b {
+    transition: 500ms;
+    transform: rotate(-180deg);
+  }
+
+  &_w {
+    transition: 500ms;
+    transform: rotate(180deg);
+  }
+}
