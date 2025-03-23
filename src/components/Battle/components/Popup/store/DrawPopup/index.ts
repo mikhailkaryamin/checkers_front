@@ -11,7 +11,6 @@ export class DrawPopup extends Popup {
   @action.bound
   public async showWithSettings(params: ShowParams) {
     this.setScoreCount(params.scoreCount);
-    this.setSkinType(params.skinType);
     await this.show();
   }
 }

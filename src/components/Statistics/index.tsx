@@ -26,7 +26,7 @@ export const Statistics = observer(function Statistics() {
         </div>
       </div>
       <Scroller className={styles.scroller} model={model.scroller}>
-        {model.formattedResults.map((r) => <Row date={r.date} result={r.result} />)}
+        {model.formattedResults.map((r, i) => <Row key={i} date={r.date} result={r.result} />)}
       </Scroller>
       <div
         style={{

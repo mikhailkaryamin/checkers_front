@@ -9,13 +9,11 @@ export const getBubbleOptions = (bubbleType: BubbleType, playerSide: Side) => {
   ) {
     return {
       text: bubbleOptions[bubbleType][playerSide].text,
-      soundSrc: bubbleOptions[bubbleType][playerSide].soundSrc,
       Image: bubbleOptions[bubbleType].Image,
     };
   }
   return {
     text: bubbleOptions[bubbleType].text,
-    soundSrc: bubbleOptions[bubbleType].soundSrc,
     Image: bubbleOptions[bubbleType].Image,
   };
 };

@@ -13,6 +13,8 @@ import { Events } from 'src/shared/classes/Events';
 import { convertMove1DToSquare } from 'src/shared/helpers/convertMove1DToSquare';
 import { convertSquareToMove1D } from 'src/shared/helpers/convertSquareToMove1D';
 import { Nullable } from 'src/types';
+import { SoundManager } from '../SoundManager';
+import { Sound } from '../SoundManager/types';
 import { Timer } from '../Timer';
 import { EventTypeMap, MoveParams, Options, PointPath } from './types';
 import { WaitActionScenario } from './WaitPlayerActionScenario';
@@ -24,6 +26,8 @@ export class GameScenario extends CancellableAction {
   protected readonly _chess: Chess;
 
   protected readonly _timer: Timer;
+
+  protected readonly _soundManager: SoundManager;
 
   protected readonly _waitPlayerActionScenario: WaitActionScenario;
 
@@ -93,6 +97,7 @@ export class GameScenario extends CancellableAction {
     });
     this._chess = options.chess;
     this._timer = options.timer;
+    this._soundManager = options.soundManager;
     this._waitPlayerActionScenario = new WaitActionScenario({
       chess: this._chess
     });
@@ -164,8 +169,12 @@ export class GameScenario extends CancellableAction {
           startSquare: this._chess.board.getCellByCoordinate({x: currentStep.x, y: currentStep.y}).square,
           finishSquare: this._chess.board.getCellByCoordinate({x: nextStep.x, y: nextStep.y}).square,
         });
+
+        this._soundManager.play(Sound.Capture);
       }
     } else {
+      this._soundManager.play(this._checkIfPlayersTurn() ? Sound.MoveSelf : Sound.MoveEnemy);
+
       await this._chess.pieces.movePieceBySquares({
         startSquare: startSquare,
         finishSquare: finishSquare,

@@ -15,6 +15,8 @@ import { SettingsPanel } from '../../components/SettingsPanel/store/SettingsPane
 import { Background } from '../Background';
 import { GameScenario } from '../GameScenario';
 import { SettingsScenario } from '../SettingsScenario';
+import { SoundManager } from '../SoundManager';
+import { Sound } from '../SoundManager/types';
 import { Timer } from '../Timer';
 import { ViewUpdater } from '../ViewUpdater';
 import {
@@ -54,11 +56,12 @@ export class Battle {
 
   public readonly drawPopup = new DrawPopup({
     playerSide: defaultPlayerSide,
-    skinType: defaultSkinType,
     isShown: false,
   });
 
   protected readonly _eventEmitter = new EventEmitter<EventTypeMap>();
+
+  protected readonly _soundManager = new SoundManager();
 
   protected readonly _viewUpdater = new ViewUpdater({
     chess: this.chess,
@@ -94,15 +97,18 @@ export class Battle {
     done: (result) => {
       if (result === 'gameOver') {
         if (this._gameScenario.gameStatus === 'playerWin') {
+          this._soundManager.play(Sound.Win);
           this._storage.setResult({ date: new Date().toISOString(), result: MatchResult.Win })
           this._winPopupAction.run();
         } else if (
           this._gameScenario.gameStatus === 'timeOver' ||
           this._gameScenario.gameStatus === 'playerLoss'
         ) {
+          this._soundManager.play(Sound.Lose);
           this._storage.setResult({ date: new Date().toISOString(), result: MatchResult.Loss })
           this._lossPopupAction.run();
         } else {
+          this._soundManager.play(Sound.Draw );
           this._storage.setResult({ date: new Date().toISOString(), result: MatchResult.Draw })
           this._drawPopupAction.run();
         }
@@ -226,6 +232,7 @@ export class Battle {
     this._gameScenario = new GameScenario({
       chess: this.chess,
       timer: this.timer,
+      soundManager: this._soundManager,
     });
     this._gameScenario.events.on('move', (data) => this._eventEmitter.emit('move', data));
     this._settingsScenario = new SettingsScenario({
