@@ -1,0 +1,31 @@
+@import 'src/styles/variables.scss';
+
+.main {
+  position: absolute;
+  right: 7px;
+  bottom: 52px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+
+  @media (min-width: $width-s) {
+    right: 10.6em;
+    bottom: 2.9em;
+    width: 6em;
+    height: 6em;
+  }
+
+  &_color {
+    &_white {
+      svg path {
+        fill: #F97248;
+      }
+    }
+    
+    &_purple {
+      svg path {
+        fill: #FFFFFF;
+      }
+    }
+  }
+}

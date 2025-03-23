@@ -98,6 +98,7 @@ export class Slot {
     }
   }
 
+  @action.bound
   public async waitWhenElementSet() {
     await this._deferredElementSet.promise;
   }

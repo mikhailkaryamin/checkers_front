@@ -3,10 +3,20 @@
 :root {
   --app-height: 100%;
   --root-scale-value: #{$rootScaleValue};
-  
+
   font-size: 6.5px;
 
   @media (min-width: $width-min-font) {
     font-size: $defaultFontSize;
+  }
+
+  --adaptiveScale: 0.065vw;
+
+  @media (min-width: $width-s) {
+  --adaptiveScale: 0.0735vw;
+  }
+
+  @media (min-width: $width-xl) {
+  --adaptiveScale: 1.132px;
   }
 }

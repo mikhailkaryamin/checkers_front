@@ -1,0 +1,25 @@
+.main {
+  background-color: rgba(46, 59, 107, 0.8);
+  font-size: calc(10 / 1360 * 100vw);
+}
+
+.backButton {
+  position: absolute;
+  left: 20px;
+  top: 15px;
+  width: 60px;
+  height: 60px;
+
+  @media (max-width: 1000px) {
+    left: 0;
+    top: 0;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+.innerWrap {
+  position: absolute;
+  left: 0;
+  top: 0;
+}

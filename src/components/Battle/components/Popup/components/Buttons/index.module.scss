@@ -1,0 +1,30 @@
+@import 'src/styles/variables.scss';
+
+.main {
+  position: absolute;
+  font-size: 1.7em;
+  left: 0%;
+  top: calc(13.8em/2);
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+  transform: translateX(-50%);
+
+  &_type{
+    &_yesNo{
+      top: calc(3.5em/2);
+    }
+  }
+
+  @media (min-width: $width-l) {
+    top: 138px;
+    gap: 34px;
+    font-size: 1.6em;
+
+    &_type{
+      &_yesNo{
+        top: 35px;
+      }
+    }
+  }
+}

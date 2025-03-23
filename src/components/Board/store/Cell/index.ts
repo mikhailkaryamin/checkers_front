@@ -1,15 +1,15 @@
 import { action, makeObservable, observable } from 'mobx';
 import { Animation } from 'src/shared/classes/Animation';
 import { Clicker } from 'src/shared/classes/Clicker';
-import { CheckerPoint, Nullable, Point } from 'src/types';
+import { CheckerPoint, Nullable, Point, Side } from 'src/types';
 import { verticalSigns } from '../../constants';
 import { Slot } from '../Slot';
-import { Color, Options, SelectionType } from './types';
+import { Options, SelectionType } from './types';
 
 export class Cell {
   public readonly coordinate: Point;
 
-  public readonly color: Color;
+  public readonly color: Side;
 
   public readonly slot = new Slot();
 

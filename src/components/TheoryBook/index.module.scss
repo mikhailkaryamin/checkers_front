@@ -1,0 +1,66 @@
+@import 'src/styles/functions.scss';
+
+.main {
+  background-color: #859bed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  position: absolute;
+  width: getAdaptedValue(1064);
+  height: getAdaptedValue(560);
+  border-radius: getAdaptedValue(44);
+  background-color: #FFFFFF;
+}
+
+.imageContainer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 52%;
+  height: 100%;
+  padding: getAdaptedValue(15);
+}
+
+.image {
+  background-size: contain;
+}
+
+.description {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: getAdaptedValue(424);
+  height: 100%;
+  padding-top: getAdaptedValue(50);
+  padding-bottom: getAdaptedValue(46);
+  padding-right: getAdaptedValue(40);
+
+  font-weight: 400;
+  font-size: getAdaptedValue(24);
+  line-height: 1.38;
+  color: #15012E;
+  white-space: pre-line;
+}
+
+.button {
+  position: absolute;
+  top: calc(50% - getAdaptedValue(42));
+  width: getAdaptedValue(84);
+  height: getAdaptedValue(84);
+}
+
+.nextButton {
+  left: calc(100% + getAdaptedValue(20));
+}
+
+.prevButton {
+  right: calc(100% + getAdaptedValue(20));
+}
+
+.prevButtonIcon {
+  width: 90%;
+  height: 90%;
+}

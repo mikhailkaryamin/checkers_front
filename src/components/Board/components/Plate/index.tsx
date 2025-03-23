@@ -8,7 +8,6 @@ export const Plate = observer(
   forwardRef(function Plate(props: Props, ref: ForwardedRef<HTMLDivElement>) {
     const { model, onMouseDown, onTouchStart, ...otherProps } = props;
     const innerRef = useCombinedRefs(ref);
-
     const handleMouseDown: MouseEventHandler<HTMLDivElement> = useCallback(
       (event) => {
         model.startDrag(event);

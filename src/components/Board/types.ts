@@ -1,5 +1,3 @@
-import { Board } from "./store/Board";
+import { HTMLAttributes } from 'react';
 
-export type Props = {
-  model: Board;
-}
+export type Props = HTMLAttributes<HTMLDivElement>;

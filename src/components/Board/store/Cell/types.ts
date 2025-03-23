@@ -1,6 +1,4 @@
-import { Nullable, Point } from 'src/types';
-export type PieceColor = 'w' | 'b';
-export type Color = PieceColor;
+import { Nullable, Point, Side } from 'src/types';
 
 export type SelectionType =
   | 'fill'
@@ -19,7 +17,7 @@ export type SelectionType =
 
 export type Options = {
   coordinate: Point;
-  color: Color;
+  color: Side;
   selectionType?: Nullable<SelectionType>;
   hoverable?: boolean;
   hovered?: boolean;

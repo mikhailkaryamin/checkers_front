@@ -1,0 +1,21 @@
+@import 'src/styles/variables.scss';
+@import 'src/styles/functions.scss';
+
+.main {
+  position: absolute;
+  top: calc(50% - getAdaptedValue(562) / 2);
+
+  &_isTransitioning {
+    transition: left 500ms;
+  }
+
+  &_position {
+    &_center {
+      left: calc(50% - getAdaptedValue(562) / 2);
+    }
+
+    &_side {
+      left: calc(50% - getAdaptedValue(520));
+    }
+  }
+}

@@ -1,20 +1,32 @@
 import { makeAutoObservable } from "mobx";
-import { Board } from "src/components/Board/store/Board";
-import { GameStore } from "./GameStore";
-// import { UIStore } from "../UIStore";
+import { Battle } from 'src/components/Battle/store/Battle';
+import { Main } from 'src/components/Main/store/Main';
+import { Preloader } from "src/components/Preloader/store/Preloader";
+import { Statistics } from "src/components/Statistics/store/Statistics";
+import { TheoryBook } from "src/components/TheoryBook/store/TheoryBook";
+import { AppStore } from './AppStore';
+import { StorageStore } from "./StorageStore";
 
 export class RootStore {
-  gameStore: GameStore;
-  boardStore: Board;
-  // uiStore: UIStore;
+  battleStore: Battle;
+  mainStore: Main;
+  appStore: AppStore;
+  theoryBookStore: TheoryBook;
+  statistiscsStore: Statistics;
+  storageStore: StorageStore;
+  preloaderStore: Preloader;
 
   constructor() {
-    this.gameStore = new GameStore(this);
-    this.boardStore = new Board();
-    // this.uiStore = new UIStore(this);
+    this.storageStore = new StorageStore();
+    this.battleStore = new Battle({ storage: this.storageStore });
+    this.mainStore = new Main();
+    this.theoryBookStore = new TheoryBook();
+    this.statistiscsStore = new Statistics({ storage: this.storageStore });
+    this.preloaderStore = new Preloader();
 
+    this.appStore = new AppStore(this);
     makeAutoObservable(this);
   }
 }
-// Инстанст рутового стора, чтобы импортировать откуда угодно
+
 export const rootStore = new RootStore();

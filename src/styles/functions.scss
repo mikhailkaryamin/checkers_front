@@ -1,0 +1,3 @@
+@function getAdaptedValue($value) {
+  @return calc(var(--adaptiveScale) * $value);
+}

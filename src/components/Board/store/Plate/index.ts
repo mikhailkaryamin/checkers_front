@@ -181,6 +181,7 @@ export class Plate extends AnimatedReparentable {
     this._isDragging = false;
     this.eventEmitter.emit(eventNames.dragFinish, currentData);
     this._deferredDragFinish?.resolve(currentData);
+    console.log(this._afterDragFinishHandler)
     this._afterDragFinishHandler?.(currentData);
   }
 

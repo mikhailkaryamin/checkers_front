@@ -1,0 +1,63 @@
+@import 'src/styles/functions.scss';
+
+.main {
+  background-color: #859bed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scrollerContainer {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: getAdaptedValue(600);
+  height: getAdaptedValue(600);
+  background-color: #fff;
+  border-radius: getAdaptedValue(30);
+  padding: getAdaptedValue(30);
+  padding-right: getAdaptedValue(50);
+}
+
+
+.scrollerHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: getAdaptedValue(20);
+  border-bottom: getAdaptedValue(5) solid #000;
+}
+
+.scrollerHeaderItem {
+  font-size: getAdaptedValue(24);
+  font-weight: 700;
+  color: #15012E;
+  flex-basis: 50%;
+  text-align: center;
+}
+
+.scroller {
+  flex: 1;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: getAdaptedValue(3) solid #000;
+}
+
+.rowItem {
+  font-size: getAdaptedValue(20);
+  color: #15012E;
+  flex-basis: 50%;
+  text-align: center;
+  padding: getAdaptedValue(10)
+}
+
+.scrollbar {
+  position: absolute;
+  right: getAdaptedValue(11);
+  top: getAdaptedValue(90);
+  width: getAdaptedValue(8);
+  border-radius: getAdaptedValue(8);
+  background-color: #F0ECFF;
+}

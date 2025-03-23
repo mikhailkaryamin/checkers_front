@@ -1,0 +1,23 @@
+.main {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100%;
+  overflow: hidden;
+}
+
+.backButton {
+  position: absolute;
+  left: 20px;
+  top: 15px;
+  width: 60px;
+  height: 60px;
+
+  @media (max-width: 1000px) {
+    left: 0;
+    top: 0;
+    width: 44px;
+    height: 44px;
+  }
+}

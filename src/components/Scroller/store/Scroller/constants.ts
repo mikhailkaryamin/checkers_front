@@ -1,0 +1,47 @@
+import { StrictRecord } from 'src/types';
+import { EventName } from './types';
+
+export const eventNames: StrictRecord<EventName> = {
+  scroll: 'scroll',
+  refChange: 'refChange',
+};
+
+export const animeEasings = {
+  easeInQuad: 'easeInQuad',
+  easeInCubic: 'easeInCubic',
+  easeInQuart: 'easeInQuart',
+  easeInQuint: 'easeInQuint',
+  easeInSine: 'easeInSine',
+  easeInExpo: 'easeInExpo',
+  easeInCirc: 'easeInCirc',
+  easeInBack: 'easeInBack',
+  easeOutQuad: 'easeOutQuad',
+  easeOutCubic: 'easeOutCubic',
+  easeOutQuart: 'easeOutQuart',
+  easeOutQuint: 'easeOutQuint',
+  easeOutSine: 'easeOutSine',
+  easeOutExpo: 'easeOutExpo',
+  easeOutCirc: 'easeOutCirc',
+  easeOutBack: 'easeOutBack',
+  easeInBounce: 'easeInBounce',
+  easeInOutQuad: 'easeInOutQuad',
+  easeInOutCubic: 'easeInOutCubic',
+  easeInOutQuart: 'easeInOutQuart',
+  easeInOutQuint: 'easeInOutQuint',
+  easeInOutSine: 'easeInOutSine',
+  easeInOutExpo: 'easeInOutExpo',
+  easeInOutCirc: 'easeInOutCirc',
+  easeInOutBack: 'easeInOutBack',
+  easeInOutBounce: 'easeInOutBounce',
+  easeOutBounce: 'easeOutBounce',
+  easeOutInQuad: 'easeOutInQuad',
+  easeOutInCubic: 'easeOutInCubic',
+  easeOutInQuart: 'easeOutInQuart',
+  easeOutInQuint: 'easeOutInQuint',
+  easeOutInSine: 'easeOutInSine',
+  easeOutInExpo: 'easeOutInExpo',
+  easeOutInCirc: 'easeOutInCirc',
+  easeOutInBack: 'easeOutInBack',
+  easeOutInBounce: 'easeOutInBounce',
+  linear: 'linear',
+};

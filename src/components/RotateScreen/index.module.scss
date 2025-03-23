@@ -1,0 +1,38 @@
+.rotateOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  background: #FFF9F0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  text-align: center;
+  padding: 20px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.rotateOverlayShow {
+  display: flex;
+}
+
+.rotateIcon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+  animation: rotate 2s infinite;
+}
+
+@keyframes rotate {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(90deg); }
+}
+
+.rotateText {
+  font-size: 1.5rem;
+  color: #3F3D56;
+  font-weight: bold;
+}

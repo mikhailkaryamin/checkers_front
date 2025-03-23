@@ -1,0 +1,56 @@
+@import 'src/styles/variables.scss';
+@import 'src/styles/functions.scss';
+
+.buttonsContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: getAdaptedValue(500);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: getAdaptedValue(40) getAdaptedValue(20);
+  background-color: #d9c9c9;
+  border-radius: 0.5em;
+  gap: 0.7em;
+  font-size: 17px;
+
+  @media (min-width: $width-xs) {
+    font-size: 25px;
+  }
+  @media (min-width: $width-s) {
+    left: 50%;
+    width: getAdaptedValue(400);
+  }
+  @media (min-width: $width-m) {
+    font-size: 25px;
+  }
+  @media (min-width: $width-l) {
+    font-size: 30px;
+  }
+  @media (min-width: $width-xxl) {
+    font-size: 36px;
+  }
+}
+
+.button {
+    height: 100%;
+    flex-grow: 1;
+    font-size: 1em;
+    padding: 0.7em 1.33em;
+    border-radius: 0.5em;
+    transition: background-color 0.3s;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.01em;
+    color: #fff;
+    cursor: pointer;
+    background-color: #64704f;
+
+    &:hover {
+      filter: brightness(120%)
+    }
+}

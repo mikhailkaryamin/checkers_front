@@ -1,0 +1,300 @@
+@import 'src/styles/variables.scss';
+@import 'src/styles/functions.scss';
+
+.main {
+  position: absolute;
+  top: calc(50% + getAdaptedValue(-120));
+  width: getAdaptedValue(189);
+  height: getAdaptedValue(98);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: left 500ms;
+
+  &_position {
+    &_side {
+      left: calc(50% + getAdaptedValue(315));
+
+      @media (min-width: $width-s) {
+        left: calc(50% + getAdaptedValue(383));
+      }
+    }
+
+    &_outside {
+      left: 150%;
+    }
+  }
+
+  &_skinType {
+    &_turquoise {
+      .background {
+        background-color: #008A91;
+        box-shadow: 0 getAdaptedValue(4) 0 #006D7C;
+      }
+
+      .settingsButton {
+        path {
+          fill: #006D7C;
+        }
+      }
+    }
+
+    &_green {
+      .background {
+        background-color: #106843;
+        box-shadow: 0 getAdaptedValue(4) 0 #084A2E;
+      }
+
+      .settingsButton {
+        path {
+          fill: #106843;
+        }
+      }
+    }
+
+    &_skyBlue {
+      .background {
+        background-color: #576DDD;
+        box-shadow: 0 getAdaptedValue(4) 0 #4256CE;
+      }
+
+      .settingsButton {
+        path {
+          fill: #4256CE;
+        }
+      }
+    }
+
+    &_darkBlue {
+      .background {
+        background-color: #635DAF;
+        box-shadow: 0 getAdaptedValue(4) 0 #4F4BA0;
+      }
+
+      .settingsButton {
+        path {
+          fill: #635DAF;
+        }
+      }
+    }
+
+    &_pink {
+      .background {
+        background-color: #B55CB8;
+        box-shadow: 0 getAdaptedValue(4) 0 #A44AA7;
+      }
+
+      .settingsButton {
+        path {
+          fill: #B55CB8;
+        }
+      }
+    }
+
+    &_blue {
+      .background {
+        background-color: #68D5FC;
+        box-shadow: 0 getAdaptedValue(4) 0 #68D5FC;
+      }
+
+      .settingsButton {
+        path {
+          fill: #68D5FC;
+        }
+      }
+    }
+
+    &_purple {
+      .background {
+        background-color: #635DAF;
+        box-shadow: 0 getAdaptedValue(4) 0 #4F4BA0;
+      }
+
+      .settingsButton {
+        path {
+          fill: #4F4BA0;
+        }
+      }
+    }
+
+    &_persianBlue {
+      .background {
+        background-color: #0068A1;
+        box-shadow: 0 getAdaptedValue(4) 0 #075B8F;
+      }
+
+      .settingsButton {
+        path {
+          fill: #075B8F;
+        }
+      }
+    }
+
+    &_azureGray {
+      .background {
+        background-color: #007991;
+        box-shadow: 0 getAdaptedValue(4) 0 #004856;
+      }
+
+      .settingsButton {
+        path {
+          fill: #007991;
+        }
+      }
+    }
+
+    &_blue2 {
+      .background {
+        background-color: #4D69FA;
+        box-shadow: 0 getAdaptedValue(4) 0 #0C0B33;
+      }
+
+      .settingsButton {
+        path {
+          fill: #4D69FA;
+        }
+      }
+    }
+
+    &_purple2 {
+      .background {
+        background-color: #A43996;
+        box-shadow: 0 getAdaptedValue(4) 0 #862E96;
+      }
+
+      .settingsButton {
+        path {
+          fill: #A43996;
+        }
+      }
+    }
+
+    &_lightBlue {
+      .background {
+        background-color: #A96CFF;
+        box-shadow: 0 getAdaptedValue(4) 0 #8F53D6;
+      }
+
+      .settingsButton {
+        path {
+          fill: #A96CFF;
+        }
+      }
+    }
+  }
+}
+
+.background {
+  position: absolute;
+  left: auto;
+  top: 0;
+  border-radius: getAdaptedValue(20);
+  background-color: #2A2A2A;
+  box-shadow: 0 getAdaptedValue(4) 0 #000000;
+  transition: width 200ms;
+
+  &.background_width {
+    &_stretched {
+      width: 100%;
+    }
+
+    &_compressed {
+      width: 80%;
+    }
+  }
+}
+
+.item {
+  font-size: getAdaptedValue(40);
+  color: #ffffff;
+}
+
+.itemsContainer {
+  overflow: hidden;
+}
+
+.control {
+  position: absolute;
+  top: getAdaptedValue(24);
+  width: getAdaptedValue(50);
+  height: getAdaptedValue(50);
+
+  &_direction {
+    &_left {
+      left: getAdaptedValue(-7);
+    }
+
+    &_right {
+      right: getAdaptedValue(-7);
+    }
+  }
+
+  &_isEnabled {
+    cursor: pointer;
+
+    @media (hover) {
+      &:hover {
+        path {
+          stroke: #9E9E9E;
+        }
+      }
+    }
+  }
+
+  &:active {
+    transform: translateY(getAdaptedValue(1));
+  }
+}
+
+.submitButton {
+  position: absolute;
+  top: getAdaptedValue(80);
+  width: getAdaptedValue(60);
+  height: getAdaptedValue(60);
+}
+
+.settingsButton {
+  position: absolute;
+  top: getAdaptedValue(80);
+  width: getAdaptedValue(44);
+  height: getAdaptedValue(44);
+  border-radius: 100%;
+  background-color: #fff;
+
+  &_isEnabled {
+    cursor: pointer;
+  }
+}
+
+.bubble {
+  position: absolute;
+  top: getAdaptedValue(125);
+  font-size: getAdaptedValue(20);
+}
+
+.bubbleInner {
+  padding: getAdaptedValue(18) getAdaptedValue(30) getAdaptedValue(22);
+  line-height: getAdaptedValue(27);
+}
+
+.extraTimer {
+  position: absolute;
+  left: getAdaptedValue(110);
+  top: getAdaptedValue(-22);
+  width: getAdaptedValue(44);
+  height: getAdaptedValue(44);
+  border-radius: 100%;
+  background: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: getAdaptedValue(22);
+  font-weight: 700;
+  color: #2A2A2A;
+  transition: transform 200ms;
+  transform: scale(0);
+
+  &_isShown {
+    transform: scale(1);
+  }
+}

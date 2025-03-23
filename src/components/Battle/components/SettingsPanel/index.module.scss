@@ -1,0 +1,218 @@
+@import 'src/styles/variables.scss';
+@import 'src/styles/functions.scss';
+
+.main {
+  $ratioOfStretchedHeightToWidth: 1.11298077;
+  $ratioOfFullHeightToWidth: 1.29807692;
+  --width: 26vw;
+  --height: calc(#{$ratioOfStretchedHeightToWidth} * var(--width));
+  --size: var(--width) / 416;
+  position: absolute;
+  left: calc(50% + getAdaptedValue(85));
+  top: calc(50% - getAdaptedValue(265));
+  width: getAdaptedValue(416);
+  height: var(--height);
+  background-color: #FFFFFF;
+  border-radius: getAdaptedValue(50);
+  padding: 0 getAdaptedValue(26);
+  z-index: 0;
+  transition: left 500ms, top 500ms, transform 500ms, opacity 500ms;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: $width-s) {
+    --width: 30.6vw;
+  }
+
+  @media (min-width: $width-xl) {
+    --width: 496px;
+  }
+
+  &_position {
+    &_side {
+      left: calc(50% + getAdaptedValue(85));
+      top: calc(50% - getAdaptedValue(265));
+      transform: none;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    &_corner {
+      left: calc(100% - var(--width) / 1.4);
+      top: calc(100% - var(--height) / 1.4);
+      transform: scale(0.3);
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+}
+
+.scroller {
+  flex: 1;
+  margin-top: getAdaptedValue(40);
+}
+
+.scrollbar {
+  position: absolute;
+  right: getAdaptedValue(11);
+  top: getAdaptedValue(55);
+  width: getAdaptedValue(8);
+  border-radius: getAdaptedValue(8);
+  background-color: #F0ECFF;
+}
+
+.title {
+  font-size: getAdaptedValue(24);
+  font-weight: 700;
+  color: #15012E;
+  margin-top: getAdaptedValue(13);
+  margin-bottom: getAdaptedValue(16);
+
+  &:nth-child(1) {
+    margin-top: 0;
+  }
+}
+
+.sideRadio {
+  width: getAdaptedValue(264);
+}
+
+.timerRadio {
+  display: inline-block;
+  width: getAdaptedValue(145);
+  margin-right: getAdaptedValue(14);
+}
+
+.radio {
+  position: relative;
+  width: 100%;
+  height: getAdaptedValue(43);
+  background-color: #cecece;
+  border-radius: getAdaptedValue(24);
+  display: flex;
+  align-items: center;
+  margin-bottom: getAdaptedValue(8);
+  transition: background-color 200ms;
+  color: #15012E;
+  font-size: getAdaptedValue(24);
+
+  &_isEnabled {
+    cursor: pointer;
+
+    @media (hover) {
+      &:hover {
+        background-color: #CBBEFA;
+      }
+    }
+  }
+}
+
+.radioCircle {
+  position: relative;
+  width: getAdaptedValue(31);
+  height: getAdaptedValue(31);
+  margin-left: getAdaptedValue(6);
+  margin-right: getAdaptedValue(14);
+  border-radius: 100%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::after {
+    content: '';
+    width: getAdaptedValue(21);
+    height: getAdaptedValue(21);
+    border-radius: 100%;
+    transition: transform 200ms;
+    background-color: #121213;
+    transform: scale(0);
+  }
+
+  &_isFilled {
+    &::after {
+      transform: scale(1);
+    }
+  }
+}
+
+.radioPiece {
+  width: getAdaptedValue(32);
+  height: getAdaptedValue(32);
+  margin-right: getAdaptedValue(6);
+  transform: rotate(10deg);
+}
+
+.skin {
+  width: getAdaptedValue(62);
+  height: getAdaptedValue(62);
+  border-radius: 50%;
+
+  &_default {
+    background-color: #4f5252;
+  }
+
+  &_type1 {
+    background-color: #D2B48C;
+  }
+
+  &_type2 {
+    background-color: #003B00;
+  }
+}
+
+.skinButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: getAdaptedValue(8);
+  margin-bottom: getAdaptedValue(9);
+}
+
+.skinButton {
+  position: relative;
+  width: getAdaptedValue(84);
+  height: getAdaptedValue(84);
+  background-color: #cecece;
+  border-radius: getAdaptedValue(32);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 200ms, box-shadow 200ms;
+  border: 0 solid #A796E7;
+
+  &_isEnabled {
+    cursor: pointer;
+
+    @media (hover) {
+      &:hover {
+        background-color: #CBBEFA;
+      }
+    }
+  }
+
+  &_isSelected {
+    box-shadow: inset 0 0 0 getAdaptedValue(4) #a796e7;
+  }
+
+  &:not(&_isActive) {
+    .skinButtonPiece {
+      opacity: 0.5;
+    }
+
+    .skinButtonLock {
+      display: block;
+    }
+  }
+}
+
+.submitButtonContainer {
+  margin-top: getAdaptedValue(17);
+  display: flex;
+  justify-content: center;
+  flex-basis: getAdaptedValue(80);
+}
+
+.submitButton {
+  width: getAdaptedValue(60);
+  height: getAdaptedValue(60);
+}

@@ -1,0 +1,25 @@
+@import '../../styles/variables.scss';
+
+.main {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transition: transform 350ms;
+
+  &_disabled {
+    cursor: default;
+  }
+
+  @media (hover) {
+    &:hover:not(.main_disabled) {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.icon {
+  svg {
+    transition: fill 350ms;
+  }
+}

@@ -1,22 +1,20 @@
-@function getSizeValue($value) {
-  @return calc(var(--size) * $value);
-}
+@import 'src/styles/functions.scss';
 
 .main {
   --size: 1px;
   font-size: 1px;
   position: relative;
-  width: getSizeValue(562);
-  height: getSizeValue(562);
+  width: getAdaptedValue(562);
+  height: getAdaptedValue(562);
   z-index: 0;
 
   &_side {
-    &_w {
+    &_light {
       .sign_direction_vertical {
         &.sign_index {
           @for $i from 0 through 7 {
             &_#{$i} {
-              left: calc(getSizeValue(33) + getSizeValue(62) * $i);
+              left: calc(getAdaptedValue(33) + getAdaptedValue(62) * $i);
               top: 0;
             }
           }
@@ -32,7 +30,7 @@
           @for $i from 0 through 7 {
             &_#{$i} {
               left: 0;
-              top: calc(getSizeValue(33) + getSizeValue(62) * (7 - $i));
+              top: calc(getAdaptedValue(33) + getAdaptedValue(62) * (7 - $i));
             }
           }
         }
@@ -55,12 +53,12 @@
       }
     }
 
-    &_b {
+    &_dark {
       .sign_direction_vertical {
         &.sign_index {
           @for $i from 0 through 7 {
             &_#{$i} {
-              left: calc(getSizeValue(33) + getSizeValue(62) * (7 - $i));
+              left: calc(getAdaptedValue(33) + getAdaptedValue(62) * (7 - $i));
               top: 0;
             }
           }
@@ -76,7 +74,7 @@
           @for $i from 0 through 7 {
             &_#{$i} {
               left: 0;
-              top: calc(getSizeValue(33) + getSizeValue(62) * $i);
+              top: calc(getAdaptedValue(33) + getAdaptedValue(62) * $i);
             }
           }
         }
@@ -101,56 +99,91 @@
   }
 
   &_skinType {
-    &_blackAndWhite {
+    &_default {
       .background {
-        background: #125E3D;
-
-        @media (min-width: 1000px) {
-          box-shadow: 0 0.4rem 0 0 #1B6632;
-        }
+        background: #4f5252;
       }
 
-      .cell_color_w::before {
+      .cell_color_light::before {
         background-color: #FFFFFF;
       }
 
-      .cell_color_b::before,
-      .promoterPiece {
+      .cell_color_dark::before {
         background-color: #28242D;
       }
 
-      .hover,
-      .weakFill {
+      .hover {
         &_color {
-          &_w {
+          &_light {
             background-color: #C0C4D3;
           }
 
-          &_b {
+          &_dark {
             background-color: #68666C;
           }
         }
       }
+    }
 
-      .counter {
-        background-color: #429C72;
+    &_type1 {
+      .background {
+        background: #D2B48C;
       }
 
-      .counterValue {
-        background-color: #038748;
+      .cell_color_light::before {
+        background-color: #FAEBD7;
+      }
+
+      .cell_color_dark::before {
+        background-color: #8B4513;
+      }
+
+      .hover {
+        &_color {
+          &_light {
+            background-color: #FFDAB9;
+          }
+
+          &_dark {
+            background-color: #A0522D;
+          }
+        }
       }
     }
+
+    &_type2 {
+      .background {
+        background: #1A1A1A;
+      }
+
+      .cell_color_light::before {
+        background-color: #00FF41;
+      }
+
+      .cell_color_dark::before {
+        background-color: #003B00;
+      }
+
+      .hover {
+        &_color {
+          &_light {
+            background-color: #39FF14;
+          }
+
+          &_dark {
+            background-color: #006400;
+          }
+        }
+      }
+    }
+
   }
 }
 
 .background {
-  border-radius: getSizeValue(26);
+  border-radius: getAdaptedValue(26);
   background: #11757E;
   z-index: -2;
-
-  @media (min-width: 1000px) {
-    box-shadow: 0 getSizeValue(4) 0 0 #006D7C;
-  }
 }
 
 .sign {
@@ -162,12 +195,12 @@
 
   &_direction {
     &_vertical {
-      width: getSizeValue(62);
-      height: getSizeValue(33);
+      width: getAdaptedValue(62);
+      height: getAdaptedValue(33);
 
       .signArrow {
         left: 50%;
-        bottom: calc(100% + getSizeValue(4));
+        bottom: calc(100% + getAdaptedValue(4));
         transform: translateX(-50%) rotate(-90deg);
         animation: signArrowAnimationTop 1000ms infinite;
       }
@@ -178,7 +211,7 @@
 
         .signArrow {
           left: 50%;
-          top: calc(100% + getSizeValue(4));
+          top: calc(100% + getAdaptedValue(4));
           bottom: auto;
           transform: translateX(-50%) rotate(90deg);
           animation: signArrowAnimationBottom 1000ms infinite;
@@ -186,16 +219,16 @@
       }
 
       .signContent {
-        font-size: getSizeValue(24);
+        font-size: getAdaptedValue(24);
       }
     }
 
     &_horizontal {
-      width: getSizeValue(33);
-      height: getSizeValue(62);
+      width: getAdaptedValue(33);
+      height: getAdaptedValue(62);
 
       .signArrow {
-        right: calc(100% + getSizeValue(4));
+        right: calc(100% + getAdaptedValue(4));
         top: 50%;
         transform: translateY(-50%) rotate(180deg);
         animation: signArrowAnimationLeft 1000ms infinite;
@@ -206,7 +239,7 @@
         right: 0;
 
         .signArrow {
-          left: calc(100% + getSizeValue(4));
+          left: calc(100% + getAdaptedValue(4));
           right: auto;
           top: 50%;
           transform: translateY(-50%) rotate(0);
@@ -215,7 +248,7 @@
       }
 
       .signContent {
-        font-size: getSizeValue(20);
+        font-size: getAdaptedValue(20);
       }
     }
   }
@@ -224,14 +257,14 @@
     &.sign_direction {
       &_vertical {
         .signContent {
-          font-size: getSizeValue(32);
+          font-size: getAdaptedValue(32);
           color: #FFFFFF;
         }
       }
 
       &_horizontal {
         .signContent {
-          font-size: getSizeValue(28);
+          font-size: getAdaptedValue(28);
           color: #FFFFFF;
         }
       }
@@ -250,10 +283,10 @@
 
 .cellsContainer {
   position: absolute;
-  left: getSizeValue(33);
-  top: getSizeValue(33);
-  width: getSizeValue(496);
-  height: getSizeValue(496);
+  left: getAdaptedValue(33);
+  top: getAdaptedValue(33);
+  width: getAdaptedValue(496);
+  height: getAdaptedValue(496);
   display: grid;
   grid-template-rows: repeat(8, 1fr);
   grid-template-columns: repeat(8, 1fr);
@@ -283,12 +316,12 @@
   }
 
   &_color {
-    &_w::before {
-      background-color: #5FC9C6;
+    &_light::before {
+      background-color: #FFF;
     }
 
-    &_b::before {
-      background-color: #22A6AA;
+    &_dark::before {
+      background-color: #000;
     }
   }
 
@@ -342,11 +375,11 @@
   z-index: -1;
 
   &_color {
-    &_w {
+    &_light {
       background-color: rgba(255, 255, 255, 0.35);
     }
 
-    &_b {
+    &_dark {
       background-color: rgba(46, 59, 107, 0.35);
     }
   }
@@ -356,11 +389,11 @@
   z-index: -1;
 
   &_color {
-    &_w {
+    &_light {
       background: rgba(255, 255, 255, 0.6);
     }
 
-    &_b {
+    &_dark {
       background: rgba(46, 59, 107, 0.6);
     }
   }
@@ -376,13 +409,13 @@
   z-index: -1;
 
   &_color {
-    &_w {
+    &_light {
       svg {
         fill: rgba(255, 255, 255, 0.4);
       }
     }
 
-    &_b {
+    &_dark {
       svg {
         fill: rgba(46, 59, 107, 0.35);
       }
@@ -390,11 +423,22 @@
   }
 }
 
+.dot {
+  position: absolute;
+  width: getAdaptedValue(18);
+  height: getAdaptedValue(18);
+  left: getAdaptedValue(22);
+  top: getAdaptedValue(22);
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  z-index: -1;
+}
+
 .border {
-  border: getSizeValue(6) solid #E4DB81;
+  border: getAdaptedValue(6) solid #E4DB81;
   box-sizing: border-box;
-  box-shadow: 0 getSizeValue(4) 0 rgba(0, 0, 0, 0.15);
-  border-radius: getSizeValue(1);
+  box-shadow: 0 getAdaptedValue(4) 0 rgba(0, 0, 0, 0.15);
+  border-radius: getAdaptedValue(1);
   z-index: -1;
 }
 
@@ -402,12 +446,8 @@
   pointer-events: none;
 
   &_color {
-    &_w {
-      background-color: rgba(255, 255, 255, 0.35);
-    }
-
-    &_b {
-      background-color: rgba(46, 59, 107, 0.35);
+    &_dark {
+      background-color: red;
     }
   }
 }
@@ -416,24 +456,24 @@
   z-index: -1;
 
   &_color {
-    &_w {
+    &_light {
       background-color: rgba(255, 255, 255, 0.2);
     }
 
-    &_b {
+    &_dark {
       background-color: rgba(46, 59, 107, 0.2);
     }
   }
 }
 
 .highlight {
-  border: getSizeValue(8) solid #54FFFC;
+  border: getAdaptedValue(8) solid #54FFFC;
   box-sizing: border-box;
-  border-radius: getSizeValue(4);
+  border-radius: getAdaptedValue(4);
 }
 
 .highlight2 {
-  border: getSizeValue(6) solid #F97248;
+  border: getAdaptedValue(6) solid #F97248;
   box-sizing: border-box;
 }
 
@@ -444,36 +484,36 @@
 
 .row {
   position: absolute;
-  border: getSizeValue(6) solid #E4DB81;
+  border: getAdaptedValue(6) solid #E4DB81;
   box-sizing: border-box;
-  box-shadow: 0 getSizeValue(4) 0 rgba(0, 0, 0, 0.15);
-  border-radius: getSizeValue(1);
+  box-shadow: 0 getAdaptedValue(4) 0 rgba(0, 0, 0, 0.15);
+  border-radius: getAdaptedValue(1);
   pointer-events: none;
 
   &_direction {
     &_vertical {
-      top: getSizeValue(33);
-      width: getSizeValue(62);
-      height: getSizeValue(496);
+      top: getAdaptedValue(33);
+      width: getAdaptedValue(62);
+      height: getAdaptedValue(496);
 
       &.row_index {
         @for $i from 0 through 7 {
           &_#{$i} {
-            left: calc(getSizeValue(33) + getSizeValue(62) * $i);
+            left: calc(getAdaptedValue(33) + getAdaptedValue(62) * $i);
           }
         }
       }
     }
 
     &_horizontal {
-      left: getSizeValue(33);
-      width: getSizeValue(496);
-      height: getSizeValue(62);
+      left: getAdaptedValue(33);
+      width: getAdaptedValue(496);
+      height: getAdaptedValue(62);
 
       &.row_index {
         @for $i from 0 through 7 {
           &_#{$i} {
-            top: calc(getSizeValue(33) + getSizeValue(62) * (7 - $i));
+            top: calc(getAdaptedValue(33) + getAdaptedValue(62) * (7 - $i));
           }
         }
       }
@@ -488,9 +528,9 @@
   --angle: 0;
 
   position: absolute;
-  left: getSizeValue(var(--pointX));
-  top: getSizeValue(var(--pointY));
-  width: getSizeValue(var(--width));
+  left: getAdaptedValue(var(--pointX));
+  top: getAdaptedValue(var(--pointY));
+  width: getAdaptedValue(var(--width));
   transform: rotate(calc(var(--angle) * 1deg));
   transform-origin: 0 0;
   pointer-events: none;
@@ -537,7 +577,7 @@
   left: 0;
   top: 0;
   width: 100%;
-  height: getSizeValue(4);
+  height: getAdaptedValue(4);
   background-color: #fff;
   transform: translateY(-50%);
 }
@@ -546,8 +586,8 @@
   position: absolute;
   right: 0;
   top: 0;
-  width: getSizeValue(17);
-  height: getSizeValue(30);
+  width: getAdaptedValue(17);
+  height: getAdaptedValue(30);
   color: #FFFFFF;
 
   &_captured {
@@ -613,9 +653,9 @@
 
 .sideArrow {
   position: absolute;
-  right: getSizeValue(-35);
-  width: getSizeValue(30);
-  height: getSizeValue(42);
+  right: getAdaptedValue(-35);
+  width: getAdaptedValue(30);
+  height: getAdaptedValue(42);
 
   :global(.shadow) {
     fill: #429C72;
@@ -626,21 +666,21 @@
   }
 
   &_top {
-    top: getSizeValue(18);
+    top: getAdaptedValue(18);
   }
 
   &_bottom {
-    bottom: getSizeValue(10);
+    bottom: getAdaptedValue(10);
   }
 }
 
 .rotate {
-  &_b {
+  &_dark {
     transition: 500ms;
     transform: rotate(-180deg);
   }
 
-  &_w {
+  &_light {
     transition: 500ms;
     transform: rotate(180deg);
   }
