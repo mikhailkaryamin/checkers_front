@@ -4,7 +4,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: 'Montserrat', sans-serif;
 }
 
 .progressContainer {
@@ -19,7 +18,7 @@
 .progressBar {
   height: 100%;
   background: linear-gradient(90deg, #FFB84D, #ffc566);
-  animation: load 5s ease-in-out forwards;
+  animation: load 3s ease-in-out forwards;
 }
 
 @keyframes load {

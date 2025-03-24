@@ -1,12 +1,13 @@
 @import './global.scss';
 @import './root.scss';
+@import './fonts.scss';
 
 * {
   -webkit-tap-highlight-color: transparent;
 }
 
 html {
-  font-family: 'Nunito';
+  font-family: 'Roboto';
   user-select: none;
   box-sizing: border-box;
   overflow: hidden;
