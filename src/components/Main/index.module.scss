@@ -1,6 +1,27 @@
 @import 'src/styles/variables.scss';
 @import 'src/styles/functions.scss';
 
+.main {
+  background-color: #00A676;
+}
+
+.logo {
+  position: absolute;
+  left: 20px;
+  top: 15px;
+  font-size: 4rem;
+
+  @media (max-width: $width-s) {
+    left: 0;
+    top: 0;
+  }
+}
+
+.checker {
+  width: 55px;
+  height: 55px;
+}
+
 .buttonsContainer {
   position: absolute;
   top: 50%;
