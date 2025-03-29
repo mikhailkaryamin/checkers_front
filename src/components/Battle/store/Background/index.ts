@@ -2,11 +2,11 @@ import { action, makeObservable, observable } from 'mobx';
 import defaultBackground from '../../components/Background/images/default.svg';
 import type1 from '../../components/Background/images/type1.svg';
 import type2 from '../../components/Background/images/type2.svg';
-import { ChessSkinType } from '../../types';
+import { DraughtsSkinType } from '../../types';
 
 export class Background {
   @observable
-  protected _type: ChessSkinType = ChessSkinType.Default;
+  protected _type: DraughtsSkinType = DraughtsSkinType.Default;
 
   protected readonly _sources = {
     default: defaultBackground,
@@ -14,7 +14,7 @@ export class Background {
     type2,
   };
 
-  public constructor(type: ChessSkinType) {
+  public constructor(type: DraughtsSkinType) {
     makeObservable(this);
     this._type = type;
   }
@@ -28,7 +28,7 @@ export class Background {
   }
 
   @action.bound
-  public setType(type: ChessSkinType) {
+  public setType(type: DraughtsSkinType) {
     this._type = type;
   }
 }

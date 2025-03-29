@@ -183,7 +183,7 @@ export class GameScenario extends CancellableAction {
 
     if (move.captures.length) {
       const capturedPieces = move.captures.map((c) =>
-        this._draughts.pieces.getChessPieceBySquare(convertMove1DToSquare(c))
+        this._draughts.pieces.getDraughtsPieceBySquare(convertMove1DToSquare(c))
       );
       capturedPieces.forEach((capturedPiece) => {
         this._draughts.pieces.removePiece(capturedPiece);
@@ -191,7 +191,7 @@ export class GameScenario extends CancellableAction {
     }
     this._draughtsEngine.board.forEach((squareData) => {
       if (squareData.piece) {
-        const piece = this._draughts.pieces.getChessPieceBySquare(convertMove1DToSquare(squareData.position));
+        const piece = this._draughts.pieces.getDraughtsPieceBySquare(convertMove1DToSquare(squareData.position));
         if (!piece.isKing && squareData.piece?.king) {
           piece.turnToKing()
         }

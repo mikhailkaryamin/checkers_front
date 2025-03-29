@@ -1,4 +1,4 @@
-import { ChessSkinType } from 'src/components/Battle/types';
+import { DraughtsSkinType } from 'src/components/Battle/types';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Timer } from './index';
 
@@ -31,8 +31,8 @@ describe('Timer', () => {
   });
 
   it('sets skin type correctly', () => {
-    timer.setSkinType(ChessSkinType.Type1);
-    expect(timer.skinType).toBe(ChessSkinType.Type1);
+    timer.setSkinType(DraughtsSkinType.Type1);
+    expect(timer.skinType).toBe(DraughtsSkinType.Type1);
   });
 
   it('can be paused', () => {

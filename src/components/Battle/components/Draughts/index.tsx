@@ -1,12 +1,12 @@
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
-import { Draughts as BaseChess } from 'src/components/Draughts';
+import { Draughts as BaseDraughts } from 'src/components/Draughts';
 import styles from './index.module.scss';
 import { Props } from './types';
 
 export const Draughts = observer(function Draughts({model}: Props) {
   return (
-    <BaseChess
+    <BaseDraughts
       className={cn(
         styles.main,
         model.position.animation.animating && styles.main_isTransitioning,

@@ -1,4 +1,4 @@
-import { ChessSkinType } from 'src/components/Battle/types';
+import { DraughtsSkinType } from 'src/components/Battle/types';
 import { Draughts } from 'src/components/Draughts/store/Draughts';
 import { Nullable, Side } from 'src/types';
 import { Background } from '../Background';
@@ -11,6 +11,6 @@ export type Options = {
 };
 
 export type ToggleParams = {
-  skinType: Nullable<ChessSkinType>;
+  skinType: Nullable<DraughtsSkinType>;
   side: Nullable<Side>;
 };

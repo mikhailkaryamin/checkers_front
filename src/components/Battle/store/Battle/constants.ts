@@ -1,13 +1,13 @@
 import { DraughtsPlayer } from 'rapid-draughts';
-import { ChessSkinType } from 'src/components/Battle/types';
+import { DraughtsSkinType } from 'src/components/Battle/types';
 import { Side } from 'src/types';
 
 export const defaultPlayerSide: Side = DraughtsPlayer.LIGHT;
 
-export const defaultSkinType: ChessSkinType = ChessSkinType.Default;
+export const defaultSkinType: DraughtsSkinType = DraughtsSkinType.Default;
 
-export const allPanelSkinTypes: ChessSkinType[] = [
-  ChessSkinType.Default,
-  ChessSkinType.Type1,
-  ChessSkinType.Type2,
+export const allPanelSkinTypes: DraughtsSkinType[] = [
+  DraughtsSkinType.Default,
+  DraughtsSkinType.Type1,
+  DraughtsSkinType.Type2,
 ];

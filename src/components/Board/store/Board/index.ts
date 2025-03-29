@@ -1,7 +1,7 @@
 import { flatten, map, range } from 'lodash';
 import { action, makeAutoObservable, observable } from 'mobx';
 import { DraughtsPlayer } from 'rapid-draughts';
-import { ChessSkinType } from 'src/components/Battle/types';
+import { DraughtsSkinType } from 'src/components/Battle/types';
 import { checkIfNumberEven } from 'src/shared/helpers/checkIfNumberEven';
 import { Side } from 'src/types';
 import { horizontalSigns, verticalSigns } from '../../constants';
@@ -18,7 +18,7 @@ export class Board {
   protected _side: Side = DraughtsPlayer.LIGHT;
 
   @observable
-  protected _skinType: ChessSkinType = ChessSkinType.Default;
+  protected _skinType: DraughtsSkinType = DraughtsSkinType.Default;
 
   public constructor() {
     makeAutoObservable(this);
@@ -82,7 +82,7 @@ export class Board {
   }
 
   @action.bound
-  public setSkinType(skinType: ChessSkinType) {
+  public setSkinType(skinType: DraughtsSkinType) {
     this._skinType = skinType;
   }
 

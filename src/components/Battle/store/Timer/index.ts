@@ -2,7 +2,7 @@ import { action, makeObservable, observable } from 'mobx';
 import { Deferred } from 'src/shared/classes/Deferred';
 import { Timeout } from 'src/shared/classes/Timeout';
 import { Nullable } from 'src/types';
-import { ChessSkinType } from '../../types';
+import { DraughtsSkinType } from '../../types';
 import { AnimatableValue } from '../AnimatableValue';
 import { ExtraTimer } from './ExtraTimer';
 import { Data, Options, PositionValue } from './types';
@@ -13,7 +13,7 @@ export class Timer {
   public readonly extraTimer = new ExtraTimer({ isShown: true, value: 5000 });
 
   @observable
-  protected _skinType: ChessSkinType = ChessSkinType.Default;
+  protected _skinType: DraughtsSkinType = DraughtsSkinType.Default;
 
   @observable
   protected _value: number;
@@ -103,7 +103,7 @@ export class Timer {
   }
 
   @action.bound
-  public setSkinType(skinType: ChessSkinType) {
+  public setSkinType(skinType: DraughtsSkinType) {
     this._skinType = skinType;
   }
 

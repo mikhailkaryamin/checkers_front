@@ -33,7 +33,7 @@ export class ViewUpdater {
     if (this._draughts.pieces.all.length === 0) {
       // this._draughts.pieces.init(piecesData);
     } else {
-      this._draughts.pieces.getChessPieces().forEach((piece, i) => {
+      this._draughts.pieces.getDraughtsPieces().forEach((piece, i) => {
         // const pieceData = piecesData[i];
         // piece.setSkinType(skinType);
         // piece.setPieceColor(pieceData.pieceColor);

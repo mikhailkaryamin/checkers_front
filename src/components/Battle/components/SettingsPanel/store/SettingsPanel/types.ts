@@ -1,11 +1,11 @@
-import { ChessSkinType } from 'src/components/Battle/types';
+import { DraughtsSkinType } from 'src/components/Battle/types';
 import { Radio } from './Radio';
 import { SkinButton } from './SkinButton';
 
 export type PositionValue = 'side' | 'corner';
 
 export type SkinButtonsData = {
-  skinType: ChessSkinType;
+  skinType: DraughtsSkinType;
 }[];
 
 export type SkinButtons = SkinButton[];
@@ -28,5 +28,5 @@ export type DifficultyRadios = {
 }
 
 export type Options = {
-  skinTypes?: ChessSkinType[];
+  skinTypes?: DraughtsSkinType[];
 };

@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
-import { ChessSkinType } from 'src/components/Battle/types';
+import { DraughtsSkinType } from 'src/components/Battle/types';
 import { Fade } from 'src/components/Fade/store/Fade';
 import { Clicker } from 'src/shared/classes/Clicker';
 import { Ref } from 'src/shared/classes/Ref';
@@ -8,7 +8,7 @@ import { Options } from './types';
 export class SkinButton {
   public readonly ref = new Ref();
 
-  public readonly skinType: ChessSkinType;
+  public readonly skinType: DraughtsSkinType;
 
   public readonly hintHand = {
     fade: new Fade({ shown: false }),
@@ -22,7 +22,7 @@ export class SkinButton {
   @observable
   protected _isSelected = false;
 
-  protected readonly _pieceSpriteTypes: { [skinType in ChessSkinType]: string } = {
+  protected readonly _pieceSpriteTypes: { [skinType in DraughtsSkinType]: string } = {
     default: 'defaultBlackKing',
     type1: 'blackKingType1',
     type2: 'blackKingType2',

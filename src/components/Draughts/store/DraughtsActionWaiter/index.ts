@@ -14,7 +14,7 @@ import {
     Options,
 } from './types';
 
-export class ChessActionWaiter {
+export class DraughtsActionWaiter {
   protected _draughts: Draughts;
 
   protected _playerPieces: Piece[] = [];
@@ -120,7 +120,7 @@ export class ChessActionWaiter {
     this._isRunning = false;
   }
 
-  public setChess(draughts: Draughts) {
+  public setDraughts(draughts: Draughts) {
     this._draughts = draughts;
   }
 
@@ -131,9 +131,9 @@ export class ChessActionWaiter {
     | DragFinishActionDataWithCell<P>
     | ClickComputerPieceActionData<P> {
     return (
-      ChessActionWaiter.checkIfClickComputerPieceActionData(actionData) ||
-      ChessActionWaiter.checkIfClickCellActionData(actionData) ||
-      (ChessActionWaiter.checkIfDragFinishActionData(actionData) && !!actionData.cell)
+      DraughtsActionWaiter.checkIfClickComputerPieceActionData(actionData) ||
+      DraughtsActionWaiter.checkIfClickCellActionData(actionData) ||
+      (DraughtsActionWaiter.checkIfDragFinishActionData(actionData) && !!actionData.cell)
     );
   }
 

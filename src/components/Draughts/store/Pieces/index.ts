@@ -5,9 +5,9 @@ import { Nullable } from 'src/types';
 import { Piece } from '../Piece';
 import { defaultPieces } from './constants';
 import {
-  MoveData,
-  Options,
-  PieceData
+    MoveData,
+    Options,
+    PieceData
 } from './types';
 
 export class Pieces {
@@ -21,7 +21,7 @@ export class Pieces {
     this._chessBoard = options.chessBoard;
   }
 
-  public get defaultChessPiecesData(): PieceData[] {
+  public get defaultDraughtsPiecesData(): PieceData[] {
     return defaultPieces as PieceData[];
   }
 
@@ -33,11 +33,11 @@ export class Pieces {
     return this._items;
   }
 
-  public setChessBoard(chessBoard: Board) {
+  public setDraughtsBoard(chessBoard: Board) {
     this._chessBoard = chessBoard;
   }
 
-  public getChessPieces() {
+  public getDraughtsPieces() {
     return this._items.filter((item) => item instanceof Piece) as Piece[];
   }
 
@@ -46,14 +46,14 @@ export class Pieces {
     return isPieceOnBoard;
   }
 
-  public getChessPiecesOnBoard() {
-    return this.getChessPieces().filter((piece) =>
+  public getDraughtsPiecesOnBoard() {
+    return this.getDraughtsPieces().filter((piece) =>
       this._chessBoard.cellSlots.includes(piece.plate.slot),
     );
   }
 
-  public getChessPiecesOutsideBoard() {
-    return this.getChessPieces().filter(
+  public getDraughtsPiecesOutsideBoard() {
+    return this.getDraughtsPieces().filter(
       (piece) => !this._chessBoard.cellSlots.includes(piece.plate.slot),
     );
   }
@@ -66,14 +66,14 @@ export class Pieces {
     return this.all.filter((piece) => !this._chessBoard.cellSlots.includes(piece.plate.slot));
   }
 
-  public findChessPieceBySquare(square: string) {
+  public findDraughtsPieceBySquare(square: string) {
     const slot = this._chessBoard.getSlotBySquare(square);
-    const piece = this.getChessPieces().find((item) => item.plate.slot === slot) ?? null;
+    const piece = this.getDraughtsPieces().find((item) => item.plate.slot === slot) ?? null;
     return piece;
   }
 
-  public getChessPieceBySquare(square: string) {
-    const piece = this.findChessPieceBySquare(square);
+  public getDraughtsPieceBySquare(square: string) {
+    const piece = this.findDraughtsPieceBySquare(square);
     this._throwErrorWhenPieceDoesNotExist(piece, square);
     return piece!;
   }
@@ -114,7 +114,7 @@ export class Pieces {
   public init() {
     this.clearPieces();
 
-    const pieces = this.defaultChessPiecesData.map((itemData) => {
+    const pieces = this.defaultDraughtsPiecesData.map((itemData) => {
       const slot = this._chessBoard.getSlotBySquare(itemData.square);
       return new Piece({
         ...itemData,
@@ -147,7 +147,7 @@ export class Pieces {
   @action.bound
   public async movePieceToCell(piece: Piece, cell: Cell) {
     const pieceInCell = this.checkIfPieceInCellBySquare(cell.square)
-      ? this.getChessPieceBySquare(cell.square)
+      ? this.getDraughtsPieceBySquare(cell.square)
       : null;
 
     if (pieceInCell && pieceInCell !== piece) {

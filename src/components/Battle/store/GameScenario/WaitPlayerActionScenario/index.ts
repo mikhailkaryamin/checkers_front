@@ -1,7 +1,7 @@
 import { flatten } from 'lodash';
 import { DraughtsPlayer } from 'rapid-draughts';
-import { ChessActionWaiter } from 'src/components/Draughts/store/ChessActionWaiter';
 import { Draughts } from 'src/components/Draughts/store/Draughts';
+import { DraughtsActionWaiter } from 'src/components/Draughts/store/DraughtsActionWaiter';
 import { Piece } from 'src/components/Draughts/store/Piece';
 import { convertMove1DToSquare } from 'src/shared/helpers/convertMove1DToSquare';
 import { convertSquareToMove1D } from 'src/shared/helpers/convertSquareToMove1D';
@@ -13,11 +13,11 @@ export class WaitActionScenario {
 
   protected readonly _draughts: Draughts;
 
-  protected readonly _chessActionWaiter: ChessActionWaiter;
+  protected readonly _chessActionWaiter: DraughtsActionWaiter;
 
   public constructor(options: Options) {
     this._draughts = options.draughts;
-    this._chessActionWaiter = new ChessActionWaiter({ draughts: this._draughts });
+    this._chessActionWaiter = new DraughtsActionWaiter({ draughts: this._draughts });
   }
 
   protected _selectedPiece: Nullable<Piece> = null;
@@ -32,7 +32,7 @@ export class WaitActionScenario {
 
   protected get _movingPieces() {
     return this._draughts.pieces
-      .getChessPieces()
+      .getDraughtsPieces()
       .filter((piece) => piece.pieceColor === this._movingSide);
   }
 
@@ -41,7 +41,7 @@ export class WaitActionScenario {
       ? DraughtsPlayer.DARK : DraughtsPlayer.LIGHT;
 
     return this._draughts.pieces
-      .getChessPieces()
+      .getDraughtsPieces()
       .filter((piece) => piece.pieceColor === enemyColor);
   }
 
@@ -92,7 +92,7 @@ export class WaitActionScenario {
   protected _enablePossiblePieces() {
     const movesData = this._draughtsEngine.moves;
     const pieces = movesData.map((move) =>
-      this._draughts.pieces.getChessPieceBySquare(convertMove1DToSquare(move.origin)));
+      this._draughts.pieces.getDraughtsPieceBySquare(convertMove1DToSquare(move.origin)));
     const cells = movesData.map((move) =>
       this._draughts.board.getCellBySquare(convertMove1DToSquare(move.origin)));
     pieces.forEach((piece) => {
@@ -107,7 +107,7 @@ export class WaitActionScenario {
   protected _disablePossiblePieces() {
     const movesData = this._draughtsEngine.moves;
     const pieces = movesData.map((move) =>
-      this._draughts.pieces.getChessPieceBySquare(convertMove1DToSquare(move.origin)));
+      this._draughts.pieces.getDraughtsPieceBySquare(convertMove1DToSquare(move.origin)));
     const cells = movesData.map((move) =>
       this._draughts.board.getCellBySquare(convertMove1DToSquare(move.origin)));
     pieces.forEach((piece) => {

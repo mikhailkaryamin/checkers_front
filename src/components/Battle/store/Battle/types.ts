@@ -1,5 +1,5 @@
 import { EnglishDraughtsGame } from 'rapid-draughts/english';
-import { ChessSkinType } from 'src/components/Battle/types';
+import { DraughtsSkinType } from 'src/components/Battle/types';
 import { Fade } from 'src/components/Fade/store/Fade';
 import { Clicker } from 'src/shared/classes/Clicker';
 import { StorageStore } from 'src/store/StorageStore';
@@ -21,7 +21,7 @@ export type Options = {
 
 export type ShowOnGameParams = {
   fen: string;
-  skinType: ChessSkinType;
+  skinType: DraughtsSkinType;
   timer: Nullable<{ index: number; mainTime: number; extraTime: number }>;
 };
 

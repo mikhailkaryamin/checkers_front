@@ -1,6 +1,6 @@
 import { map, values } from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
-import { ChessSkinType } from 'src/components/Battle/types';
+import { DraughtsSkinType } from 'src/components/Battle/types';
 import { Scroller } from 'src/components/Scroller/store/Scroller';
 import { Clicker } from 'src/shared/classes/Clicker';
 import { getElementSize } from 'src/shared/helpers/getElementSize';
@@ -57,13 +57,13 @@ export class SettingsPanel {
 
   protected readonly _skinButtonsData: SkinButtonsData = [
     {
-      skinType: ChessSkinType.Default,
+      skinType: DraughtsSkinType.Default,
     },
     {
-      skinType: ChessSkinType.Type1,
+      skinType: DraughtsSkinType.Type1,
     },
     {
-      skinType: ChessSkinType.Type2,
+      skinType: DraughtsSkinType.Type2,
     },
   ];
 
@@ -93,7 +93,7 @@ export class SettingsPanel {
 
   public get selectedSkinTypeOrDefault() {
     const skinButtons = values(this.skinButtons);
-    const skinType = skinButtons.find((skinButton) => skinButton.isSelected)?.skinType ?? ChessSkinType.Default;
+    const skinType = skinButtons.find((skinButton) => skinButton.isSelected)?.skinType ?? DraughtsSkinType.Default;
     return skinType;
   }
 
@@ -133,18 +133,18 @@ export class SettingsPanel {
   }
 
   @action.bound
-  public setSkinButtonsBySkinTypes(skinTypes: ChessSkinType[]) {
+  public setSkinButtonsBySkinTypes(skinTypes: DraughtsSkinType[]) {
     this._skinButtons = this._skinButtonsData
       .filter((data) => skinTypes.includes(data.skinType))
       .map(
         (data) =>
           new SkinButton({
-            skinType: data.skinType as ChessSkinType,
+            skinType: data.skinType as DraughtsSkinType,
           }),
       );
   }
 
-  public getSkinButtonBySkinType(skinType: ChessSkinType) {
+  public getSkinButtonBySkinType(skinType: DraughtsSkinType) {
     const skinButton = this.skinButtons.find((skinButton) => skinButton.skinType === skinType);
 
     if (!skinButton) {
