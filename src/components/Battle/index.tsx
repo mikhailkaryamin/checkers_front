@@ -13,7 +13,7 @@ export const Battle = () => {
   return (
     <Fade model={model.fade} absolute fullSize>
       <Background model={model.background} />
-      <Chess model={model.chess} />
+      <Chess model={model.draughts} />
       <SettingsPanel model={model.settingsPanel} />
       <Timer model={model.timer} />
       <ResetButton model={model.resetButton} />

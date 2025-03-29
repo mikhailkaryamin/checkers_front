@@ -3,7 +3,7 @@ import { Chess } from '../Chess';
 import { Piece } from '../Piece';
 
 export type Options = {
-  chess: Chess;
+  draughts: Chess;
 };
 
 export type ClickPlayerPieceActionData<P extends Piece = Piece> = {

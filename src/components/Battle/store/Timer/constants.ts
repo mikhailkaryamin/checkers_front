@@ -1,5 +1,5 @@
 export const soundSources = {
-  bubble: 'https://cms-content.uchi.ru/audios/chess/battle/pop_3.mp3',
+  bubble: 'https://cms-content.uchi.ru/audios/draughts/battle/pop_3.mp3',
 };
 
 export const texts = {

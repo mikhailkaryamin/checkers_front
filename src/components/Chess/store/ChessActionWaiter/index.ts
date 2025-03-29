@@ -5,17 +5,17 @@ import { Nullable } from 'src/types';
 import { Chess } from '../Chess';
 import { Piece } from '../Piece';
 import {
-  ActionData,
-  ClickCellActionData,
-  ClickComputerPieceActionData,
-  ClickPlayerPieceActionData,
-  DragFinishActionData,
-  DragFinishActionDataWithCell,
-  Options,
+    ActionData,
+    ClickCellActionData,
+    ClickComputerPieceActionData,
+    ClickPlayerPieceActionData,
+    DragFinishActionData,
+    DragFinishActionDataWithCell,
+    Options,
 } from './types';
 
 export class ChessActionWaiter {
-  protected _chess: Chess;
+  protected _draughts: Chess;
 
   protected _playerPieces: Piece[] = [];
 
@@ -34,7 +34,7 @@ export class ChessActionWaiter {
   protected _deferredEvent: Nullable<Deferred<ActionData<Piece>>> = null;
 
   public constructor(options: Options) {
-    this._chess = options.chess;
+    this._draughts = options.draughts;
   }
 
   public static checkIfClickPlayerPieceActionData<P extends Piece>(
@@ -69,7 +69,7 @@ export class ChessActionWaiter {
     this._computerPieces = computerPieces;
 
     this._computerPiecesClickHandlers = computerPieces.map((piece) => () => {
-      const cell = this._chess.board.getCellBySlot(piece.plate.slot);
+      const cell = this._draughts.board.getCellBySlot(piece.plate.slot);
       this._deferredEvent?.resolve({ type: 'clickComputerPiece', piece, cell });
     });
 
@@ -78,18 +78,18 @@ export class ChessActionWaiter {
 
       if (isDrag) {
         const cell =
-          data.mostIntersectedSlot && this._chess.board.getCellBySlot(data.mostIntersectedSlot);
+          data.mostIntersectedSlot && this._draughts.board.getCellBySlot(data.mostIntersectedSlot);
 
         this._deferredEvent?.resolve({ type: 'dragFinish', piece, cell });
       }
     });
 
     this._playerPiecesClickHandlers = playerPieces.map((piece) => () => {
-      const cell = this._chess.board.getCellBySlot(piece.plate.slot);
+      const cell = this._draughts.board.getCellBySlot(piece.plate.slot);
       this._deferredEvent?.resolve({ type: 'clickPlayerPiece', piece, cell });
     });
 
-    this._cellsClickHandlers = this._chess.board.cells.map((cell) => () => {
+    this._cellsClickHandlers = this._draughts.board.cells.map((cell) => () => {
       this._deferredEvent?.resolve({ type: 'clickCell', cell });
     });
 
@@ -113,15 +113,15 @@ export class ChessActionWaiter {
       piece.clicker.events.off('click', this._playerPiecesClickHandlers[i]);
     });
 
-    this._chess.board.cells.forEach((cell, i) =>
+    this._draughts.board.cells.forEach((cell, i) =>
       cell.clicker.events.off('click', this._cellsClickHandlers[i]),
     );
 
     this._isRunning = false;
   }
 
-  public setChess(chess: Chess) {
-    this._chess = chess;
+  public setChess(draughts: Chess) {
+    this._draughts = draughts;
   }
 
   public static checkIfActionWithTargetCell<P extends Piece>(
@@ -147,7 +147,7 @@ export class ChessActionWaiter {
       piece.clicker.events.on('click', this._playerPiecesClickHandlers[i]);
     });
 
-    this._chess.board.cells.forEach((cell, i) =>
+    this._draughts.board.cells.forEach((cell, i) =>
       cell.clicker.events.on('click', this._cellsClickHandlers[i]),
     );
   }

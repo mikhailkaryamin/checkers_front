@@ -11,14 +11,14 @@ import { Timer } from '../Timer';
 import { ViewUpdater } from '../ViewUpdater';
 import { possibleTimerData } from './constants';
 import {
-  ActionData,
-  DifficultyRadioClickActionData,
-  Options,
-  RuleRadioClickActionData,
-  SideRadioClickActionData,
-  SkinButtonClickActionData,
-  SubmitButtonClickActionData,
-  TimerRadioClickActionData
+    ActionData,
+    DifficultyRadioClickActionData,
+    Options,
+    RuleRadioClickActionData,
+    SideRadioClickActionData,
+    SkinButtonClickActionData,
+    SubmitButtonClickActionData,
+    TimerRadioClickActionData
 } from './types';
 
 export class SettingsScenario extends CancellableAction {
@@ -64,7 +64,7 @@ export class SettingsScenario extends CancellableAction {
 
   protected readonly _background: Background;
 
-  protected readonly _chess: Chess;
+  protected readonly _draughts: Chess;
 
   protected readonly _settingsPanel: SettingsPanel;
 
@@ -83,11 +83,11 @@ export class SettingsScenario extends CancellableAction {
       done: options.done,
     });
     this._background = options.background;
-    this._chess = options.chess;
+    this._draughts = options.draughts;
     this._settingsPanel = options.settingsPanel;
     this._timer = options.timer;
     this._viewUpdater = new ViewUpdater({
-      chess: this._chess,
+      draughts: this._draughts,
       timer: this._timer,
       background: this._background,
     });
@@ -139,11 +139,11 @@ export class SettingsScenario extends CancellableAction {
     const radios = values(this._settingsPanel.difficultyRadios);
     radios.forEach((radio, index) => radio.setIsSelected(index === radioIndex));
     if (radioIndex === 0) {
-      this._chess.setDifficulty(Difficulty.Easy)
+      this._draughts.setDifficulty(Difficulty.Easy)
     } else if (radioIndex === 1) {
-      this._chess.setDifficulty(Difficulty.Medium)
+      this._draughts.setDifficulty(Difficulty.Medium)
     } else if (radioIndex === 2) {
-      this._chess.setDifficulty(Difficulty.Hard)
+      this._draughts.setDifficulty(Difficulty.Hard)
     }
 
     this._toggleSubmitButtonActivity();

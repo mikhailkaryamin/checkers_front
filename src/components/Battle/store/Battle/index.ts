@@ -20,9 +20,9 @@ import { Sound } from '../SoundManager/types';
 import { Timer } from '../Timer';
 import { ViewUpdater } from '../ViewUpdater';
 import {
-  allPanelSkinTypes,
-  defaultPlayerSide,
-  defaultSkinType
+    allPanelSkinTypes,
+    defaultPlayerSide,
+    defaultSkinType
 } from './constants';
 import { Button, EventTypeMap, GameActionResult, Options } from './types';
 
@@ -31,7 +31,7 @@ export class Battle {
 
   public readonly background = new Background(defaultSkinType);
 
-  public readonly chess = new Chess();
+  public readonly draughts = new Chess();
 
   public readonly settingsPanel = new SettingsPanel();
 
@@ -64,7 +64,7 @@ export class Battle {
   protected readonly _soundManager = new SoundManager();
 
   protected readonly _viewUpdater = new ViewUpdater({
-    chess: this.chess,
+    draughts: this.draughts,
     timer: this.timer,
     background: this.background,
   });
@@ -133,7 +133,7 @@ export class Battle {
         this.timer.position.animateValue('side');
       }
       await Promise.all([
-        this.chess.position.animateValue('center'),
+        this.draughts.position.animateValue('center'),
         this.settingsPanel.position.animateValue('corner'),
         this.resetButton.fade.show(),
       ]);
@@ -145,12 +145,12 @@ export class Battle {
 
   protected readonly _resetAction = new CancellableAction({
     run: async () => {
-      this.chess.board.animateResetAllCellsSelectionType();
+      this.draughts.board.animateResetAllCellsSelectionType();
       this.timer.reset();
       this.timer.cancel();
-      await this.chess.resetPieces();
-      await this.chess.createAndShowPieces();
-      this.chess.resetEngine();
+      await this.draughts.resetPieces();
+      await this.draughts.createAndShowPieces();
+      this.draughts.resetEngine();
     },
     done: () => this._startGameAction.run(),
   });
@@ -163,7 +163,7 @@ export class Battle {
       this.settingsPanel.submitButton.clicker.enable();
 
       await Promise.all([
-        this.chess.position.animateValue('side'),
+        this.draughts.position.animateValue('side'),
         this.settingsPanel.position.animateValue('side'),
         this.timer.position.animateValue('outside'),
         this.resetButton.fade.hide(),
@@ -204,11 +204,11 @@ export class Battle {
 
   protected readonly _repeatAction = new CancellableAction({
     run: async () => {
-      this.chess.board.animateResetAllCellsSelectionType();
+      this.draughts.board.animateResetAllCellsSelectionType();
       await this.resetButton.fade.hide();
-      this.chess.resetEngine();
-      await this.chess.resetPieces();
-      await this.chess.createAndShowPieces();
+      this.draughts.resetEngine();
+      await this.draughts.resetPieces();
+      await this.draughts.createAndShowPieces();
       this.settingsPanel.resetStates();
       this.settingsPanel.setIsSideSelectionEnabled(true);
       this.settingsPanel.setIsTimerSelectionEnabled(true);
@@ -216,7 +216,7 @@ export class Battle {
       this.timer.cancel();
 
       await Promise.all([
-        this.chess.position.animateValue('side'),
+        this.draughts.position.animateValue('side'),
         this.settingsPanel.position.animateValue('side'),
         this.timer.position.animateValue('outside'),
       ]);
@@ -230,14 +230,14 @@ export class Battle {
     this.fade = new Fade({ shown: false, hasUnmount: true });
     this._storage = options.storage;
     this._gameScenario = new GameScenario({
-      chess: this.chess,
+      draughts: this.draughts,
       timer: this.timer,
       soundManager: this._soundManager,
     });
     this._gameScenario.events.on('move', (data) => this._eventEmitter.emit('move', data));
     this._settingsScenario = new SettingsScenario({
       background: this.background,
-      chess: this.chess,
+      draughts: this.draughts,
       settingsPanel: this.settingsPanel,
       timer: this.timer,
       done: async () => {
@@ -255,7 +255,7 @@ export class Battle {
   }
 
   protected get _playerColor() {
-    return this.chess.board.side;
+    return this.draughts.board.side;
   }
 
   public cancel() {
@@ -269,8 +269,8 @@ export class Battle {
     this._lossPopupAction.cancelSoft();
     this._drawPopupAction.cancelSoft();
     this._repeatAction.cancelSoft();
-    this.chess.resetEngine();
-    this.chess.resetPieces();
+    this.draughts.resetEngine();
+    this.draughts.resetPieces();
   }
 
   public async show() {
@@ -280,14 +280,14 @@ export class Battle {
   public async hide() {
     this.cancel();
     await this.fade.hide();
-    this.chess.board.animateResetAllCellsSelectionType();
+    this.draughts.board.animateResetAllCellsSelectionType();
     this.timer.cancel();
     this.timer.setData(null);
     this.settingsPanel.resetStates();
     this.settingsPanel.setIsSideSelectionEnabled(true);
     this.settingsPanel.setIsTimerSelectionEnabled(true);
-    this.chess.engine
-    this.chess.resetEngine();
+    this.draughts.engine
+    this.draughts.resetEngine();
   }
 
   public showInstantly() {
@@ -302,8 +302,8 @@ export class Battle {
   public async showOnSettings() {
     this.background.setType(defaultSkinType);
     this.timer.position.setValue('outside');
-    this.chess.position.setValue('side');
-    this.chess.pieces.clearPieces();
+    this.draughts.position.setValue('side');
+    this.draughts.pieces.clearPieces();
     this.resetButton.clicker.disable();
     this.resetButton.fade.hideInstantly();
     this.settingsPanel.resetStates();

@@ -4,7 +4,7 @@ import { SoundManager } from '../SoundManager';
 import { Timer } from '../Timer';
 
 export type Options = {
-  chess: Chess;
+  draughts: Chess;
   timer: Timer;
   soundManager: SoundManager;
 };

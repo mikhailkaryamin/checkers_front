@@ -5,7 +5,7 @@ import { Background } from '../Background';
 import { Timer } from '../Timer';
 
 export type Options = {
-  chess: Chess;
+  draughts: Chess;
   timer: Timer;
   background: Background;
 };

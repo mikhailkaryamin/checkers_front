@@ -11,7 +11,7 @@ export const Chess = observer(function Chess(props: Props) {
   const { className, children, ...otherProps } = props;
 
   useEffectOnMount(() => () => model.clear());
-  const { battleStore: { chess: model } } = rootStore;
+  const { battleStore: { draughts: model } } = rootStore;
 
   return (
     <Board {...otherProps} className={cn(styles.main, className)}>

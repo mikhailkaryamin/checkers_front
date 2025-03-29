@@ -1,7 +1,7 @@
 import { Chess } from 'src/components/Chess/store/Chess';
 
 export type Options = {
-  chess: Chess;
+  draughts: Chess;
 };
 
 export type GameStatus =

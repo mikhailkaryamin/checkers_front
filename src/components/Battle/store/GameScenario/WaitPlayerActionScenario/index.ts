@@ -11,27 +11,27 @@ import { Options } from './types';
 export class WaitActionScenario {
   protected _isActionDone = false;
 
-  protected readonly _chess: Chess;
+  protected readonly _draughts: Chess;
 
   protected readonly _chessActionWaiter: ChessActionWaiter;
 
   public constructor(options: Options) {
-    this._chess = options.chess;
-    this._chessActionWaiter = new ChessActionWaiter({ chess: this._chess });
+    this._draughts = options.draughts;
+    this._chessActionWaiter = new ChessActionWaiter({ draughts: this._draughts });
   }
 
   protected _selectedPiece: Nullable<Piece> = null;
 
-  protected get _draughts() {
-    return this._chess.engine;
+  protected get _draughtsEngine() {
+    return this._draughts.engine;
   }
 
   protected get _movingSide() {
-    return this._draughts.player;
+    return this._draughtsEngine.player;
   }
 
   protected get _movingPieces() {
-    return this._chess.pieces
+    return this._draughts.pieces
       .getChessPieces()
       .filter((piece) => piece.pieceColor === this._movingSide);
   }
@@ -40,7 +40,7 @@ export class WaitActionScenario {
     const enemyColor = this._movingSide === DraughtsPlayer.LIGHT
       ? DraughtsPlayer.DARK : DraughtsPlayer.LIGHT;
 
-    return this._chess.pieces
+    return this._draughts.pieces
       .getChessPieces()
       .filter((piece) => piece.pieceColor === enemyColor);
   }
@@ -62,15 +62,15 @@ export class WaitActionScenario {
         this._unselectPiece();
         prevSelectedPiece !== actionData.piece && this._selectPiece(actionData.piece);
       } else if (actionData.type === 'clickCell' && this._selectedPiece) {
-        startSquare = this._chess.board.getCellBySlot(this._selectedPiece.plate.slot)
+        startSquare = this._draughts.board.getCellBySlot(this._selectedPiece.plate.slot)
           .square;
         finishSquare = actionData.cell.square;
         this._unselectPiece();
         this._isActionDone = true;
       } else if (actionData.type === 'clickComputerPiece' && this._selectedPiece) {
-        startSquare = this._chess.board.getCellBySlot(this._selectedPiece.plate.slot)
+        startSquare = this._draughts.board.getCellBySlot(this._selectedPiece.plate.slot)
           .square;
-        finishSquare = this._chess.board.getCellBySlot(actionData.piece.plate.slot)
+        finishSquare = this._draughts.board.getCellBySlot(actionData.piece.plate.slot)
           .square;
         this._unselectPiece();
         this._isActionDone = true;
@@ -81,7 +81,7 @@ export class WaitActionScenario {
   }
 
   public cancel() {
-    if (this._chess.pieces.all.length !== 0) {
+    if (this._draughts.pieces.all.length !== 0) {
       this._unselectPiece();
       this._disablePossiblePieces();
     }
@@ -90,11 +90,11 @@ export class WaitActionScenario {
   }
 
   protected _enablePossiblePieces() {
-    const movesData = this._draughts.moves;
+    const movesData = this._draughtsEngine.moves;
     const pieces = movesData.map((move) =>
-      this._chess.pieces.getChessPieceBySquare(convertMove1DToSquare(move.origin)));
+      this._draughts.pieces.getChessPieceBySquare(convertMove1DToSquare(move.origin)));
     const cells = movesData.map((move) =>
-      this._chess.board.getCellBySquare(convertMove1DToSquare(move.origin)));
+      this._draughts.board.getCellBySquare(convertMove1DToSquare(move.origin)));
     pieces.forEach((piece) => {
       piece.setIsHoverable(true);
       piece.clicker.enable();
@@ -105,11 +105,11 @@ export class WaitActionScenario {
   }
 
   protected _disablePossiblePieces() {
-    const movesData = this._draughts.moves;
+    const movesData = this._draughtsEngine.moves;
     const pieces = movesData.map((move) =>
-      this._chess.pieces.getChessPieceBySquare(convertMove1DToSquare(move.origin)));
+      this._draughts.pieces.getChessPieceBySquare(convertMove1DToSquare(move.origin)));
     const cells = movesData.map((move) =>
-      this._chess.board.getCellBySquare(convertMove1DToSquare(move.origin)));
+      this._draughts.board.getCellBySquare(convertMove1DToSquare(move.origin)));
     pieces.forEach((piece) => {
       piece.setIsHoverable(false);
       piece.clicker.disable();
@@ -123,14 +123,14 @@ export class WaitActionScenario {
     if (this._selectedPiece === piece) return;
 
     this._selectedPiece = piece;
-    const cell = this._chess.board.getCellBySlot(piece.plate.slot);
-    const possibleMoves = this._draughts.moves.filter((m) => m.origin === convertSquareToMove1D(cell.square))
+    const cell = this._draughts.board.getCellBySlot(piece.plate.slot);
+    const possibleMoves = this._draughtsEngine.moves.filter((m) => m.origin === convertSquareToMove1D(cell.square))
     const captures = flatten(possibleMoves.filter((m) => m.captures.length >= 1).map((el) => el.captures));
     const defaultMovesCells = possibleMoves.map((m) =>
-      this._chess.board.getCellBySquare(convertMove1DToSquare(m.destination)),
+      this._draughts.board.getCellBySquare(convertMove1DToSquare(m.destination)),
     );
     const capturesCells = captures.map((c) =>
-      this._chess.board.getCellBySquare(convertMove1DToSquare(c)),
+      this._draughts.board.getCellBySquare(convertMove1DToSquare(c)),
     );
 
     defaultMovesCells.forEach((cell) => {
@@ -146,14 +146,14 @@ export class WaitActionScenario {
   protected async _unselectPiece() {
     if (this._selectedPiece === null) return;
 
-    const cell = this._chess.board.getCellBySlot(this._selectedPiece.plate.slot);
-    const possibleMoves = this._draughts.moves.filter((m) => m.origin === convertSquareToMove1D(cell.square))
+    const cell = this._draughts.board.getCellBySlot(this._selectedPiece.plate.slot);
+    const possibleMoves = this._draughtsEngine.moves.filter((m) => m.origin === convertSquareToMove1D(cell.square))
     const captures = flatten(possibleMoves.filter((m) => m.captures.length >= 1).map((el) => el.captures));
     const defaultMovesCells = possibleMoves.map((m) =>
-      this._chess.board.getCellBySquare(convertMove1DToSquare(m.destination)),
+      this._draughts.board.getCellBySquare(convertMove1DToSquare(m.destination)),
     );
     const capturesCells = captures.map((c) =>
-      this._chess.board.getCellBySquare(convertMove1DToSquare(c)),
+      this._draughts.board.getCellBySquare(convertMove1DToSquare(c)),
     );
     this._selectedPiece = null;
     defaultMovesCells.forEach((cell) => {

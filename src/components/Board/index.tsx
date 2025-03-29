@@ -10,7 +10,7 @@ import { Props } from './types';
 
 export const Board = observer((props: Props) => {
   const { className, children,  ...otherProps  } = props;
-  const { battleStore: {chess: { board: model } } } = rootStore;
+  const { battleStore: {draughts: { board: model } } } = rootStore;
 
   return (
     <div

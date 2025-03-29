@@ -22,7 +22,7 @@ export type ActionData =
 
 export type Options = {
   background: Background;
-  chess: Chess;
+  draughts: Chess;
   settingsPanel: SettingsPanel;
   timer: Timer;
   done?: Done<void>;

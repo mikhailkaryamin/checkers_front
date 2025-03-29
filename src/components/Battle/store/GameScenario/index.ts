@@ -1,8 +1,8 @@
 import { last, sample } from 'lodash';
 import { DraughtsMove1D, DraughtsPlayer, DraughtsStatus, } from 'rapid-draughts';
 import {
-  EnglishDraughtsComputerFactory as ComputerFactory,
-  EnglishDraughtsComputer
+    EnglishDraughtsComputerFactory as ComputerFactory,
+    EnglishDraughtsComputer
 } from 'rapid-draughts/english';
 import { Chess } from 'src/components/Chess/store/Chess';
 import { Difficulty } from 'src/components/Chess/store/Chess/types';
@@ -23,7 +23,7 @@ import { GameStatus } from './WaitPlayerActionScenario/types';
 export class GameScenario extends CancellableAction {
   protected readonly _eventEmitter = new EventEmitter<EventTypeMap>();
 
-  protected readonly _chess: Chess;
+  protected readonly _draughts: Chess;
 
   protected readonly _timer: Timer;
 
@@ -95,11 +95,11 @@ export class GameScenario extends CancellableAction {
       run: () => this._runGameScenario(),
       cancel: () => this._gameIterationAction.cancelSoft(),
     });
-    this._chess = options.chess;
+    this._draughts = options.draughts;
     this._timer = options.timer;
     this._soundManager = options.soundManager;
     this._waitPlayerActionScenario = new WaitActionScenario({
-      chess: this._chess
+      draughts: this._draughts
     });
   }
 
@@ -115,16 +115,16 @@ export class GameScenario extends CancellableAction {
     return this._isHintsEnabled;
   }
 
-  protected get _draughts() {
-    return this._chess.engine;
+  protected get _draughtsEngine() {
+    return this._draughts.engine;
   }
 
   protected get _moves() {
-    return this._draughts.history.moves;
+    return this._draughtsEngine.history.moves;
   }
 
   protected get _playerColor() {
-    return this._chess.board.side;
+    return this._draughts.board.side;
   }
 
   protected get _computerColor() {
@@ -147,7 +147,7 @@ export class GameScenario extends CancellableAction {
 
   protected async _move(params: MoveParams) {
     const { startSquare, finishSquare } = params;
-    const move = this._draughts.moves.find((m) => (
+    const move = this._draughtsEngine.moves.find((m) => (
       m.origin === convertSquareToMove1D(startSquare)
       &&
       m.destination === convertSquareToMove1D(finishSquare)));
@@ -158,16 +158,16 @@ export class GameScenario extends CancellableAction {
 
     const capturesPath = this._findCapturesPath(move);
 
-    this._draughts.move(move);
+    this._draughtsEngine.move(move);
     if (capturesPath.length) {
       const currentPath = capturesPath[0].path;
       for (let i = 0; i < currentPath.length - 1; i++) {
         const currentStep = currentPath[i];
         const nextStep = currentPath[i + 1];
 
-        await this._chess.pieces.movePieceBySquares({
-          startSquare: this._chess.board.getCellByCoordinate({x: currentStep.x, y: currentStep.y}).square,
-          finishSquare: this._chess.board.getCellByCoordinate({x: nextStep.x, y: nextStep.y}).square,
+        await this._draughts.pieces.movePieceBySquares({
+          startSquare: this._draughts.board.getCellByCoordinate({x: currentStep.x, y: currentStep.y}).square,
+          finishSquare: this._draughts.board.getCellByCoordinate({x: nextStep.x, y: nextStep.y}).square,
         });
 
         this._soundManager.play(Sound.Capture);
@@ -175,7 +175,7 @@ export class GameScenario extends CancellableAction {
     } else {
       this._soundManager.play(this._checkIfPlayersTurn() ? Sound.MoveSelf : Sound.MoveEnemy);
 
-      await this._chess.pieces.movePieceBySquares({
+      await this._draughts.pieces.movePieceBySquares({
         startSquare: startSquare,
         finishSquare: finishSquare,
       });
@@ -183,15 +183,15 @@ export class GameScenario extends CancellableAction {
 
     if (move.captures.length) {
       const capturedPieces = move.captures.map((c) =>
-        this._chess.pieces.getChessPieceBySquare(convertMove1DToSquare(c))
+        this._draughts.pieces.getChessPieceBySquare(convertMove1DToSquare(c))
       );
       capturedPieces.forEach((capturedPiece) => {
-        this._chess.pieces.removePiece(capturedPiece);
+        this._draughts.pieces.removePiece(capturedPiece);
       })
     }
-    this._draughts.board.forEach((squareData) => {
+    this._draughtsEngine.board.forEach((squareData) => {
       if (squareData.piece) {
-        const piece = this._chess.pieces.getChessPieceBySquare(convertMove1DToSquare(squareData.position));
+        const piece = this._draughts.pieces.getChessPieceBySquare(convertMove1DToSquare(squareData.position));
         if (!piece.isKing && squareData.piece?.king) {
           piece.turnToKing()
         }
@@ -200,12 +200,12 @@ export class GameScenario extends CancellableAction {
   }
 
   protected _findCapturesPath(move: DraughtsMove1D) {
-    const startCell = this._chess.board.getCellBySquare(convertMove1DToSquare(move.origin));
+    const startCell = this._draughts.board.getCellBySquare(convertMove1DToSquare(move.origin));
     const start = { x: startCell.coordinate.x, y: startCell.coordinate.y };
-    const finishCell = this._chess.board.getCellBySquare(convertMove1DToSquare(move.destination));
+    const finishCell = this._draughts.board.getCellBySquare(convertMove1DToSquare(move.destination));
     const finish = { x: finishCell.coordinate.x, y: finishCell.coordinate.y };
     const captures = move.captures.map((c) =>
-      this._chess.board.getCellBySquare(convertMove1DToSquare(c))
+      this._draughts.board.getCellBySquare(convertMove1DToSquare(c))
     ).map((c) => ({x: c.coordinate.x, y: c.coordinate.y}))
 
     function isValidCell(p: PointPath): boolean {
@@ -254,9 +254,9 @@ export class GameScenario extends CancellableAction {
 
   protected async _waitComputerBestMove() {
     let computer: EnglishDraughtsComputer;
-    if (this._chess.difficulty === Difficulty.Easy) {
+    if (this._draughts.difficulty === Difficulty.Easy) {
       computer = ComputerFactory.random()
-    } else if (this._chess.difficulty === Difficulty.Medium) {
+    } else if (this._draughts.difficulty === Difficulty.Medium) {
       computer = ComputerFactory.alphaBeta({
         maxDepth: 3,
       });
@@ -266,7 +266,7 @@ export class GameScenario extends CancellableAction {
       });
     }
 
-    const move = await computer(this._draughts)
+    const move = await computer(this._draughtsEngine)
     return {
       startSquare: convertMove1DToSquare(move.origin),
       finishSquare: convertMove1DToSquare(move.destination),
@@ -274,14 +274,14 @@ export class GameScenario extends CancellableAction {
   }
 
   protected _getRandomMove() {
-    const possibleMoves = this._draughts.moves;
+    const possibleMoves = this._draughtsEngine.moves;
     const randomMove = sample(possibleMoves)!;
 
     return randomMove;
   }
 
   protected _checkIfPlayersTurn() {
-    return this._draughts.player === this._playerColor;
+    return this._draughtsEngine.player === this._playerColor;
   }
 
   protected async _runComputerMove() {
@@ -293,11 +293,11 @@ export class GameScenario extends CancellableAction {
     const isCurrentPlayerLight = this._playerColor === DraughtsPlayer.LIGHT;
     const isCurrentPlayerDark = this._playerColor === DraughtsPlayer.DARK;
 
-    if (this._draughts.status === DraughtsStatus.DRAW) {
+    if (this._draughtsEngine.status === DraughtsStatus.DRAW) {
       this._setGameStatus('draw');
-    } else if (isCurrentPlayerLight && this._draughts.status === DraughtsStatus.LIGHT_WON) {
+    } else if (isCurrentPlayerLight && this._draughtsEngine.status === DraughtsStatus.LIGHT_WON) {
       this._setGameStatus('playerWin');
-    } else if (isCurrentPlayerDark && this._draughts.status === DraughtsStatus.DARK_WON) {
+    } else if (isCurrentPlayerDark && this._draughtsEngine.status === DraughtsStatus.DARK_WON) {
       this._setGameStatus('playerWin');
     } else {
       this._setGameStatus('playerLoss');
@@ -317,7 +317,7 @@ export class GameScenario extends CancellableAction {
 
   protected _checkGameOver() {
     return (
-      this._draughts.status !== DraughtsStatus.PLAYING
+      this._draughtsEngine.status !== DraughtsStatus.PLAYING
     );
   }
 }
