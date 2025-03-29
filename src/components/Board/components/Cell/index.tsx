@@ -29,6 +29,7 @@ export const Cell = observer(function Cell(props: Props) {
         duration={cell.selectionTypeAnimation.animating ? defaultAnimationDuration : 0}
         hasUnmount
         onFadeEnd={cell.selectionTypeAnimation.finish}
+        data-testid="dot"
       />
       <Fade
         className={cn(styles.overlap, styles[`overlap_color_${cell.color}`])}

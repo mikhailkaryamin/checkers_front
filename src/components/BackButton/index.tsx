@@ -8,5 +8,6 @@ export const BackButton = observer(function BackButton({onClick}: Props) {
     className={styles.backButton}
     type="back"
     onClick={onClick}
+    data-testid="back_button"
   />
 })

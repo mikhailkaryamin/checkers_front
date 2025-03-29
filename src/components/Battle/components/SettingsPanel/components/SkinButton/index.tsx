@@ -18,6 +18,7 @@ export const SkinButton = observer(function SkinButton(props: Props) {
         className,
       )}
       onClick={model.clicker.click}
+      data-testid="skin_button"
     >
       <div className={cn(
         styles.skin,

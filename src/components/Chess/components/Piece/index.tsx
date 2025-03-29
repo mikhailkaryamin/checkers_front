@@ -22,6 +22,7 @@ export const Piece = observer(function Piece(props: Props) {
       )}
       model={model.plate}
       onClick={model.clicker.click}
+      data-testid={`${model.isHoverable ? "piece_isHoverable" : ""}`}
     >
       <Block className={chessStyles.pieceHover} fullSize>
         <Block className={chessStyles.pieceInner} fullSize>

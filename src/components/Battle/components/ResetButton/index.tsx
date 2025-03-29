@@ -17,6 +17,7 @@ export const ResetButton = observer(function ResetButton(props: Props) {
         disabled={model.clicker.disabled}
         hasPadding={false}
         onClick={model.clicker.click}
+        data-testid="reset_button"
       >
         <Icon type="repeat" />
       </Button>

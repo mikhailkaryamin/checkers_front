@@ -13,7 +13,7 @@ export const TheoryBook = observer(function TheoryBook() {
   const { theoryBookStore: model } = rootStore;
 
   return (
-    <Fade model={model.fade} className={styles.main} absolute fullSize>
+    <Fade model={model.fade} className={styles.main} absolute fullSize data-testid="theory_book">
       <BackButton onClick={model.backButton.click}/>
       <div className={styles.container}>
         <Button

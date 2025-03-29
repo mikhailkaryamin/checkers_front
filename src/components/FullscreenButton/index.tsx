@@ -17,5 +17,6 @@ export const FullscreenButton = observer(function BackButton() {
     className={styles.fullscreenButton}
     type={isFullscreen ? "fullscreenOut" : "fullscreenIn"}
     onClick={toggle}
+    data-testid="fullscreen_button"
   />
 })

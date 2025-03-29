@@ -17,6 +17,7 @@ export const SettingsPanel = observer(function SettingsPanel(props: Props) {
         styles[`main_position_${model.position.value}`],
       )}
       onTransitionEnd={model.position.animation.finish}
+      data-testid="setting_panel"
     >
       <Scroller className={styles.scroller} model={model.scroller}>
         <div className={cn(styles.title, styles.title_hasTopBigMargin)}>

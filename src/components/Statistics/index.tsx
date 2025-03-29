@@ -10,7 +10,7 @@ import styles from "./index.module.scss";
 export const Statistics = observer(function Statistics() {
   const { statistiscsStore: model } = rootStore;
 
-  return (<Fade model={model.fade} className={styles.main} absolute fullSize>
+  return (<Fade model={model.fade} className={styles.main} absolute fullSize data-testid="statistics">
     <BackButton onClick={model.backButton.click}/>
     <div
       className={cn(

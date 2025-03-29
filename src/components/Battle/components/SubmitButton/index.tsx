@@ -15,6 +15,7 @@ export const SubmitButton = (props: Props) => {
       color="orange"
       disabled={!isEnabled}
       hasPadding={false}
+      data-testid="submit_button"
     >
       <CheckMarkSprite />
     </Button>
