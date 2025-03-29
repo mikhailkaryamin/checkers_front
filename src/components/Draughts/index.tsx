@@ -7,7 +7,7 @@ import { Piece } from './components/Piece';
 import styles from './index.module.scss';
 import { Props } from './types';
 
-export const Chess = observer(function Chess(props: Props) {
+export const Draughts = observer(function Draughts(props: Props) {
   const { className, children, ...otherProps } = props;
 
   useEffectOnMount(() => () => model.clear());

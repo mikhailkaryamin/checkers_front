@@ -2,7 +2,7 @@ import { DragFinishData, DragFinishHandler } from 'src/components/Board/store/Pl
 import { ClickHandler } from 'src/shared/classes/Clicker/types';
 import { Deferred } from 'src/shared/classes/Deferred';
 import { Nullable } from 'src/types';
-import { Chess } from '../Chess';
+import { Draughts } from '../Draughts';
 import { Piece } from '../Piece';
 import {
     ActionData,
@@ -15,7 +15,7 @@ import {
 } from './types';
 
 export class ChessActionWaiter {
-  protected _draughts: Chess;
+  protected _draughts: Draughts;
 
   protected _playerPieces: Piece[] = [];
 
@@ -120,7 +120,7 @@ export class ChessActionWaiter {
     this._isRunning = false;
   }
 
-  public setChess(draughts: Chess) {
+  public setChess(draughts: Draughts) {
     this._draughts = draughts;
   }
 

@@ -1,9 +1,9 @@
 import { Cell } from 'src/components/Board/store/Cell';
-import { Chess } from '../Chess';
+import { Draughts } from '../Draughts';
 import { Piece } from '../Piece';
 
 export type Options = {
-  draughts: Chess;
+  draughts: Draughts;
 };
 
 export type ClickPlayerPieceActionData<P extends Piece = Piece> = {

@@ -1,10 +1,10 @@
-import { Chess } from 'src/components/Chess/store/Chess';
+import { Draughts } from 'src/components/Draughts/store/Draughts';
 import { Background } from '../Background';
 import { Timer } from '../Timer';
 import { Options, ToggleParams } from './types';
 
 export class ViewUpdater {
-  protected _draughts: Chess;
+  protected _draughts: Draughts;
 
   protected _timer: Timer;
 

@@ -2,7 +2,7 @@ import { Fade } from 'src/components/Fade';
 import { rootStore } from 'src/store/RootStore';
 import { BackButton } from '../BackButton';
 import { Background } from './components/Background';
-import { Chess } from './components/Chess';
+import { Draughts } from './components/Draughts';
 import { Popup } from './components/Popup';
 import { ResetButton } from './components/ResetButton';
 import { SettingsPanel } from './components/SettingsPanel';
@@ -13,7 +13,7 @@ export const Battle = () => {
   return (
     <Fade model={model.fade} absolute fullSize>
       <Background model={model.background} />
-      <Chess model={model.draughts} />
+      <Draughts model={model.draughts} />
       <SettingsPanel model={model.settingsPanel} />
       <Timer model={model.timer} />
       <ResetButton model={model.resetButton} />

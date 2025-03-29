@@ -1,8 +1,8 @@
 import { flatten } from 'lodash';
 import { DraughtsPlayer } from 'rapid-draughts';
-import { Chess } from 'src/components/Chess/store/Chess';
-import { ChessActionWaiter } from 'src/components/Chess/store/ChessActionWaiter';
-import { Piece } from 'src/components/Chess/store/Piece';
+import { ChessActionWaiter } from 'src/components/Draughts/store/ChessActionWaiter';
+import { Draughts } from 'src/components/Draughts/store/Draughts';
+import { Piece } from 'src/components/Draughts/store/Piece';
 import { convertMove1DToSquare } from 'src/shared/helpers/convertMove1DToSquare';
 import { convertSquareToMove1D } from 'src/shared/helpers/convertSquareToMove1D';
 import { Nullable } from 'src/types';
@@ -11,7 +11,7 @@ import { Options } from './types';
 export class WaitActionScenario {
   protected _isActionDone = false;
 
-  protected readonly _draughts: Chess;
+  protected readonly _draughts: Draughts;
 
   protected readonly _chessActionWaiter: ChessActionWaiter;
 

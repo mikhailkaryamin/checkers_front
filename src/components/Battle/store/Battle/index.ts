@@ -1,5 +1,5 @@
 import { values } from 'lodash';
-import { Chess } from 'src/components/Chess/store/Chess';
+import { Draughts } from 'src/components/Draughts/store/Draughts';
 import { Fade } from 'src/components/Fade/store/Fade';
 import { CancellableAction } from 'src/shared/classes/CancellableAction';
 import { Clicker } from 'src/shared/classes/Clicker';
@@ -31,7 +31,7 @@ export class Battle {
 
   public readonly background = new Background(defaultSkinType);
 
-  public readonly draughts = new Chess();
+  public readonly draughts = new Draughts();
 
   public readonly settingsPanel = new SettingsPanel();
 

@@ -1,7 +1,7 @@
 import { map } from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
 import {
-  EnglishDraughts as Draughts
+    EnglishDraughts as DraughtsGame
 } from 'rapid-draughts/english';
 import { Board } from 'src/components/Board/store/Board';
 import { ObjectEventWaiter } from 'src/shared/classes/ObjectEventWaiter';
@@ -10,7 +10,7 @@ import { AnimatableValue } from '../AnimatableValue';
 import { Pieces } from '../Pieces';
 import { Difficulty, PositionValue } from './types';
 
-export class Chess {
+export class Draughts {
   public readonly pieces: Pieces;
 
   public readonly position = new AnimatableValue<PositionValue>('side');
@@ -18,7 +18,7 @@ export class Chess {
   protected _board = new Board();
 
   @observable
-  protected _engine = Draughts.setup();
+  protected _engine = DraughtsGame.setup();
 
   @observable
   protected _difficulty = Difficulty.Easy;
@@ -49,7 +49,7 @@ export class Chess {
 
   @action
   public resetEngine() {
-    this._engine = Draughts.setup();
+    this._engine = DraughtsGame.setup();
   }
 
   public clear() {

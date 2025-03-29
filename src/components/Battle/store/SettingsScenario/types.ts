@@ -1,4 +1,4 @@
-import { Chess } from 'src/components/Chess/store/Chess';
+import { Draughts } from 'src/components/Draughts/store/Draughts';
 import { Done } from 'src/shared/classes/CancellableAction/types';
 import { Side } from 'src/types';
 import { SettingsPanel } from '../../components/SettingsPanel/store/SettingsPanel';
@@ -22,7 +22,7 @@ export type ActionData =
 
 export type Options = {
   background: Background;
-  draughts: Chess;
+  draughts: Draughts;
   settingsPanel: SettingsPanel;
   timer: Timer;
   done?: Done<void>;

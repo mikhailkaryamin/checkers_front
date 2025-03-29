@@ -4,8 +4,8 @@ import {
     EnglishDraughtsComputerFactory as ComputerFactory,
     EnglishDraughtsComputer
 } from 'rapid-draughts/english';
-import { Chess } from 'src/components/Chess/store/Chess';
-import { Difficulty } from 'src/components/Chess/store/Chess/types';
+import { Draughts } from 'src/components/Draughts/store/Draughts';
+import { Difficulty } from 'src/components/Draughts/store/Draughts/types';
 import { CancellableAction } from 'src/shared/classes/CancellableAction';
 import { Deferred } from 'src/shared/classes/Deferred';
 import { EventEmitter } from 'src/shared/classes/EventEmitter';
@@ -23,7 +23,7 @@ import { GameStatus } from './WaitPlayerActionScenario/types';
 export class GameScenario extends CancellableAction {
   protected readonly _eventEmitter = new EventEmitter<EventTypeMap>();
 
-  protected readonly _draughts: Chess;
+  protected readonly _draughts: Draughts;
 
   protected readonly _timer: Timer;
 

@@ -1,10 +1,10 @@
-import { Chess } from 'src/components/Chess/store/Chess';
+import { Draughts } from 'src/components/Draughts/store/Draughts';
 import { EventTypeMap as CancellableActionEventTypeMap } from 'src/shared/classes/CancellableAction/types';
 import { SoundManager } from '../SoundManager';
 import { Timer } from '../Timer';
 
 export type Options = {
-  draughts: Chess;
+  draughts: Draughts;
   timer: Timer;
   soundManager: SoundManager;
 };

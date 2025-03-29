@@ -1,7 +1,7 @@
 import { values } from 'lodash';
 import { DraughtsPlayer } from 'rapid-draughts';
-import { Chess } from 'src/components/Chess/store/Chess';
-import { Difficulty } from 'src/components/Chess/store/Chess/types';
+import { Draughts } from 'src/components/Draughts/store/Draughts';
+import { Difficulty } from 'src/components/Draughts/store/Draughts/types';
 import { CancellableAction } from 'src/shared/classes/CancellableAction';
 import { Deferred } from 'src/shared/classes/Deferred';
 import { Nullable } from 'src/types';
@@ -64,7 +64,7 @@ export class SettingsScenario extends CancellableAction {
 
   protected readonly _background: Background;
 
-  protected readonly _draughts: Chess;
+  protected readonly _draughts: Draughts;
 
   protected readonly _settingsPanel: SettingsPanel;
 

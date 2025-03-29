@@ -1,10 +1,10 @@
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
-import { Chess as BaseChess } from 'src/components/Chess';
+import { Draughts as BaseChess } from 'src/components/Draughts';
 import styles from './index.module.scss';
 import { Props } from './types';
 
-export const Chess = observer(function Chess({model}: Props) {
+export const Draughts = observer(function Draughts({model}: Props) {
   return (
     <BaseChess
       className={cn(
