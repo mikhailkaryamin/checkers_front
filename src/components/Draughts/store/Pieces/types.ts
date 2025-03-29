@@ -12,5 +12,5 @@ export type PieceData = {
 };
 
 export type Options = {
-  chessBoard: Board;
+  draughtsBoard: Board;
 };

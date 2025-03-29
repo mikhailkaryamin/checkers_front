@@ -13,11 +13,11 @@ export class WaitActionScenario {
 
   protected readonly _draughts: Draughts;
 
-  protected readonly _chessActionWaiter: DraughtsActionWaiter;
+  protected readonly _draughtsActionWaiter: DraughtsActionWaiter;
 
   public constructor(options: Options) {
     this._draughts = options.draughts;
-    this._chessActionWaiter = new DraughtsActionWaiter({ draughts: this._draughts });
+    this._draughtsActionWaiter = new DraughtsActionWaiter({ draughts: this._draughts });
   }
 
   protected _selectedPiece: Nullable<Piece> = null;
@@ -53,7 +53,7 @@ export class WaitActionScenario {
     while (!this._isActionDone) {
       this._enablePossiblePieces();
 
-      const actionData = await this._chessActionWaiter.wait(this._movingPieces, this._enemyPieces);
+      const actionData = await this._draughtsActionWaiter.wait(this._movingPieces, this._enemyPieces);
 
       this._disablePossiblePieces();
 
@@ -86,7 +86,7 @@ export class WaitActionScenario {
       this._disablePossiblePieces();
     }
 
-    this._chessActionWaiter.cancel();
+    this._draughtsActionWaiter.cancel();
   }
 
   protected _enablePossiblePieces() {

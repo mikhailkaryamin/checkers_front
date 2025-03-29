@@ -31,7 +31,7 @@ export class Draughts {
 
   constructor() {
     makeObservable(this);
-    this.pieces = new Pieces({ chessBoard: this.board });
+    this.pieces = new Pieces({ draughtsBoard: this.board });
     this.board.disableCells();
   }
 

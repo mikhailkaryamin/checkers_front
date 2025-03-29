@@ -14,27 +14,27 @@ export class Pieces {
   @observable
   protected _items: Piece[] = [];
 
-  protected _chessBoard: Board;
+  protected _draughtsBoard: Board;
 
   public constructor(options: Options) {
     makeObservable(this);
-    this._chessBoard = options.chessBoard;
+    this._draughtsBoard = options.draughtsBoard;
   }
 
   public get defaultDraughtsPiecesData(): PieceData[] {
     return defaultPieces as PieceData[];
   }
 
-  public get chessBoard() {
-    return this._chessBoard;
+  public get draughtsBoard() {
+    return this._draughtsBoard;
   }
 
   public get all() {
     return this._items;
   }
 
-  public setDraughtsBoard(chessBoard: Board) {
-    this._chessBoard = chessBoard;
+  public setDraughtsBoard(draughtsBoard: Board) {
+    this._draughtsBoard = draughtsBoard;
   }
 
   public getDraughtsPieces() {
@@ -42,32 +42,32 @@ export class Pieces {
   }
 
   public checkIfPieceOnBoard(piece: Piece) {
-    const isPieceOnBoard = this._chessBoard.cellSlots.includes(piece.plate.slot);
+    const isPieceOnBoard = this._draughtsBoard.cellSlots.includes(piece.plate.slot);
     return isPieceOnBoard;
   }
 
   public getDraughtsPiecesOnBoard() {
     return this.getDraughtsPieces().filter((piece) =>
-      this._chessBoard.cellSlots.includes(piece.plate.slot),
+      this._draughtsBoard.cellSlots.includes(piece.plate.slot),
     );
   }
 
   public getDraughtsPiecesOutsideBoard() {
     return this.getDraughtsPieces().filter(
-      (piece) => !this._chessBoard.cellSlots.includes(piece.plate.slot),
+      (piece) => !this._draughtsBoard.cellSlots.includes(piece.plate.slot),
     );
   }
 
   public getPiecesOnBoard() {
-    return this.all.filter((piece) => this._chessBoard.cellSlots.includes(piece.plate.slot));
+    return this.all.filter((piece) => this._draughtsBoard.cellSlots.includes(piece.plate.slot));
   }
 
   public getPiecesOutsideBoard() {
-    return this.all.filter((piece) => !this._chessBoard.cellSlots.includes(piece.plate.slot));
+    return this.all.filter((piece) => !this._draughtsBoard.cellSlots.includes(piece.plate.slot));
   }
 
   public findDraughtsPieceBySquare(square: string) {
-    const slot = this._chessBoard.getSlotBySquare(square);
+    const slot = this._draughtsBoard.getSlotBySquare(square);
     const piece = this.getDraughtsPieces().find((item) => item.plate.slot === slot) ?? null;
     return piece;
   }
@@ -79,7 +79,7 @@ export class Pieces {
   }
 
   public getBySquare(square: string) {
-    const slot = this._chessBoard.getSlotBySquare(square);
+    const slot = this._draughtsBoard.getSlotBySquare(square);
     const piece = this._items.find((item) => item.plate.slot === slot) ?? null;
     this._throwErrorWhenPieceDoesNotExist(piece, square);
 
@@ -87,7 +87,7 @@ export class Pieces {
   }
 
   public checkIfPieceInCellBySquare(square: string) {
-    const slot = this._chessBoard.getSlotBySquare(square);
+    const slot = this._draughtsBoard.getSlotBySquare(square);
     const isPieceInCell = !!this._items.find((item) => item.plate.slot === slot);
     return isPieceInCell;
   }
@@ -106,7 +106,7 @@ export class Pieces {
 
   public async movePieceBySquares(params: MoveData) {
     const piece = this.getBySquare(params.startSquare);
-    const slot = this._chessBoard.getCellBySquare(params.finishSquare);
+    const slot = this._draughtsBoard.getCellBySquare(params.finishSquare);
     await this.movePieceToCell(piece, slot);
   }
 
@@ -115,13 +115,13 @@ export class Pieces {
     this.clearPieces();
 
     const pieces = this.defaultDraughtsPiecesData.map((itemData) => {
-      const slot = this._chessBoard.getSlotBySquare(itemData.square);
+      const slot = this._draughtsBoard.getSlotBySquare(itemData.square);
       return new Piece({
         ...itemData,
-        chessBoard: this._chessBoard,
+        draughtsBoard: this._draughtsBoard,
         pieces: this,
         slot,
-        slots: this._chessBoard.cellSlots,
+        slots: this._draughtsBoard.cellSlots,
         enabled: false
       });
     });

@@ -20,7 +20,7 @@ export class Piece {
 
   public readonly clicker: Clicker;
 
-  protected readonly _chessBoard: Board;
+  protected readonly _draughtsBoard: Board;
 
   protected readonly _pieces: Pieces;
 
@@ -51,7 +51,7 @@ export class Piece {
     });
     this.fade = new Fade({ shown: options.isShown });
     this.clicker = new Clicker({ enabled: options.enabled });
-    this._chessBoard = options.chessBoard;
+    this._draughtsBoard = options.draughtsBoard;
     this._pieces = options.pieces;
     this._side = options.side;
     this.plate.events.on('dragStart', this.handleDragStart);
@@ -138,6 +138,6 @@ export class Piece {
   }
 
   public getCell() {
-    return this._chessBoard.getCellBySlot(this.plate.slot);
+    return this._draughtsBoard.getCellBySlot(this.plate.slot);
   }
 }

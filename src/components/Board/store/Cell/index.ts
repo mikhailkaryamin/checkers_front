@@ -48,16 +48,16 @@ export class Cell {
     return this._hovered;
   }
 
-  public get chessPoint() {
-    const chessPoint: CheckerPoint = {
+  public get draughtsPoint() {
+    const draughtsPoint: CheckerPoint = {
       v: verticalSigns[this.coordinate.x],
       h: String(8 - this.coordinate.y),
     };
-    return chessPoint;
+    return draughtsPoint;
   }
 
   public get square() {
-    return `${this.chessPoint.v}${this.chessPoint.h}`;
+    return `${this.draughtsPoint.v}${this.draughtsPoint.h}`;
   }
 
   @action.bound

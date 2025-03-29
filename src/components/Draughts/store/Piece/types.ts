@@ -4,7 +4,7 @@ import { Side } from 'src/types';
 import { Pieces } from '../Pieces';
 
 export type Options = PlateOptions & {
-  chessBoard: Board;
+  draughtsBoard: Board;
   pieces: Pieces;
   side: Side;
   isShown?: boolean;

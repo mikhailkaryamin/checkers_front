@@ -35,23 +35,23 @@ describe('Cell', () => {
     expect(cell.hovered).toBe(true);
   });
 
-  it('should get correct chess point for a1', () => {
-    // Cell at 0,7 should be a1 in chess notation
+  it('should get correct draughts point for a1', () => {
+    // Cell at 0,7 should be a1 in draughts notation
     const a1Cell = new Cell({
       coordinate: { x: 0, y: 7 },
       color: DraughtsPlayer.LIGHT
     });
-    expect(a1Cell.chessPoint).toEqual({ v: 'a', h: '1' });
+    expect(a1Cell.draughtsPoint).toEqual({ v: 'a', h: '1' });
     expect(a1Cell.square).toEqual('a1');
   });
 
-  it('should get correct chess point for h8', () => {
-    // Cell at 7,0 should be h8 in chess notation
+  it('should get correct draughts point for h8', () => {
+    // Cell at 7,0 should be h8 in draughts notation
     const h8Cell = new Cell({
       coordinate: { x: 7, y: 0 },
       color: DraughtsPlayer.LIGHT
     });
-    expect(h8Cell.chessPoint).toEqual({ v: 'h', h: '8' });
+    expect(h8Cell.draughtsPoint).toEqual({ v: 'h', h: '8' });
     expect(h8Cell.square).toEqual('h8');
   });
 });
