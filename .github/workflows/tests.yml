@@ -24,6 +24,26 @@ jobs:
       - name: Install dependencies
         run: yarn
 
+      - name: Create tsconfig.node.json if missing
+        run: |
+          if [ ! -f tsconfig.node.json ]; then
+            echo '{
+              "compilerOptions": {
+                "composite": true,
+                "skipLibCheck": true,
+                "module": "ESNext",
+                "moduleResolution": "bundler",
+                "allowSyntheticDefaultImports": true,
+                "types": ["vitest/globals"]
+              },
+              "include": ["vite.config.ts"]
+            }' > tsconfig.node.json
+          fi
+
+      - name: Update tsconfig.json with Vitest globals
+        run: |
+          npx -y json -I -f tsconfig.json -e 'this.compilerOptions.types=this.compilerOptions.types||[]; if(!this.compilerOptions.types.includes("vitest/globals"))this.compilerOptions.types.push("vitest/globals");'
+
       - name: Run Vitest tests
         run: npm test
 
